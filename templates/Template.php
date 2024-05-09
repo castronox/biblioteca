@@ -110,8 +110,8 @@ class Template implements TemplateInterface{
     
         // entrada adicional de ejemplo:
         $html .=   "<li><a href='/'>TODO</a></li>";
-        $html .=    "<li><a href='/Libro'>Lista de libros</a></li>";
-        $html .=    "<li><a href='/Libro'>Nuevo LIBRO</a></li>";
+        $html .=    "<li><a href='/Libro/'>Lista de libros</a></li>";
+        $html .=    "<li><a href='/Libro/create'>Nuevo LIBRO</a></li>";
         
         $html .= "</menu>";
 
