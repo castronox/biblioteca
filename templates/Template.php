@@ -105,9 +105,13 @@ class Template implements TemplateInterface{
         // enlace a los tests de ejemplo (solamente administrador)    
         if(Login::isAdmin() && (DEBUG))
             $html .=   "<li><a href='/test'>Lista de test</a></li>";
+        
+
     
         // entrada adicional de ejemplo:
         $html .=   "<li><a href='/'>TODO</a></li>";
+        $html .=    "<li><a href='/Libro'>Lista de libros</a></li>";
+        $html .=    "<li><a href='/Libro'>Nuevo LIBRO</a></li>";
         
         $html .= "</menu>";
 
