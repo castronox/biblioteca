@@ -52,6 +52,30 @@
 				class="button" href="/libro/edit/<?= $libro->id?>">Edición</a> <a
 				class="button" href="/libro/delete/<?= $libro->id?>">Borrado</a>
 		</div>
+		
+		<section>
+		<h2>Ejemplares de <?= $libro->titulo?></h2>
+		<?php 
+		if(!$ejemplares){
+			echo"<p>No hay ejemplares de este libro.</p>";
+		}else{ ?>
+			
+		<table>
+		<tr>
+			<th>ID</th><th>Año</th><th>Precio</th><th>Estado</th>
+		</tr>
+		<?php 
+		foreach($ejemplares as $ejemplar){
+			echo "<tr><td>$ejemplar->id</td>";	
+			echo "<td>$ejemplar->anyo</td>";
+			echo "<td>$ejemplar->precio</td>";
+			echo "<td>$ejemplar->estado</td>";			
+			}	
+		    ?>
+		</table>		
+  <?php 	}?>
+
+		</section>
 
 
 	</main>

@@ -72,16 +72,47 @@
 		</form>
 		
 				<div class="centrado">
-			<a class="button" onclick="history.back()">Atrás</a> <a
-				class="button" href="/libro/list">Lista de libros</a> <a
-				class="button" href="/libro/show/<?= $libro->id?>">Detalles</a> <a
-				class="button" href="/libro/delete/<?= $libro->id?>">Borrado</a>
+			<a class="button" onclick="history.back()">Atrás</a> 
+			<a class="button" href="/libro/list">Lista de libros</a> 
+			<a class="button" href="/libro/show/<?= $libro->id?>">Detalles</a>
+			<a class="button" href="/libro/delete/<?= $libro->id?>">Borrado</a>
+			 
 		</div>
+		
+				<section>
+		<h2>Ejemplares de <?= $libro->titulo?></h2>
+		<?php 
+		if(!$ejemplares){
+			echo"<p>No hay ejemplares de este libro.</p>";
+		}else{ ?>
+			
+		<table>
+		<tr>
+			<th>ID</th><th>Año</th><th>Precio</th><th>Estado</th>
+		</tr>
+		<?php 
+		foreach($ejemplares as $ejemplar){
+			echo "<tr><td>$ejemplar->id</td>";	
+			echo "<td>$ejemplar->anyo</td>";
+			echo "<td>$ejemplar->precio</td>";
+		    echo "<td>$ejemplar->estado</td></tr>";			
+			}	
+		    ?>
+		</table>		
+  <?php 	}?>
+		
+		<a class="button" href="/Ejemplar/create/<?= $libro->id?>">Nuevo ejemplar</a>
+		
+		</section>
 
 	</main>
+	
+	
+	
+	
 
 
-	<!-- FINALIZA ------------------------------------------ -->
+	<!--------------------------------- FINALIZA ------------------------------------------ -->
 
 
 <?=(TEMPLATE)::getFooter()?>

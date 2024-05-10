@@ -27,10 +27,12 @@ class LibroController extends Controller {
 			throw new NothigToFindException ( 'No se indicó el libro a buscar.' );
 		
 		$libro = Libro::findOrFail ( $id, "No se encontró el libro seleccionado" );
+		$ejemplares = $libro->getEjemplares('Ejemplar');
 		
 		# Carga la vista y le pasa el libro recuperado
 		view ( 'libro/show', [ 
-				'libro' => $libro
+				'libro' => $libro,
+				'ejemplares' =>$ejemplares
 		] );
 	}
 	
@@ -97,11 +99,12 @@ class LibroController extends Controller {
 	# Esta función muestra la vista del formulario de edición
 	public function edit(int $id = 0) {
 		$libro = Libro::findOrFail ( $id, "No se encontró el libro." );
-		
+		$ejemplares = $libro->getEjemplares('Ejemplar');
 		# Carga la vista con el formulario de edición
 		
 		view ( 'libro/edit', [ 
-				'libro' => $libro
+				'libro' => $libro,
+				'ejemplares' =>$ejemplares
 		] );
 	}
 	
@@ -113,6 +116,7 @@ class LibroController extends Controller {
 		$id = intval ( $this->request->post ( 'id' ) ); # Recuperar el id via POST
 		
 		$libro = Libro::findOrFail ( $id, "No se ha encontrado el libro deseado." );
+		
 		
 		# Recuperar el resto de campos
 		$libro->isbn = $this->request->post ( 'isbn' );
@@ -154,13 +158,7 @@ class LibroController extends Controller {
 				
 				'libro' => $libro
 		]);
-	}
-	
-	
-	
-	
-	
-	
+	}	
 	
 	
 	
@@ -200,5 +198,12 @@ class LibroController extends Controller {
 					redirect("/Libro/delete/$id");
 			}
 	}
+	
+	
+	
+	
+	
+
+	
 }
 
