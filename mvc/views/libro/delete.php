@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Lista de libros - <?= APP_NAME ?></title>
+<title>Borrar el libro - <?= $libro->titulo?></title>
 
 <!-- META -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">

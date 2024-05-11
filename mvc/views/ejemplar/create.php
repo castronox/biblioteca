@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Lista de libros - <?= APP_NAME ?></title>
+<title>Crear ejemplar del libro - <?= $libro->titulo ?></title>
 
 <!-- META -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,22 +31,32 @@
 		<h2>Nuevo ejemplar</h2>
 
 		<p>
-			Estás a punbto de crear un nuevo ejemplar del libro <b><?= $libro->titulo?></b>.
+			Estás a punto de crear un nuevo ejemplar del libro:  <b><?= $libro->titulo?></b>.
 		</p>
 
 		<form method="POST" action="/Ejemplar/store">
 
-			<input type="hidden" name="idlibro" value="<?= $libro->id?>"> <label>Año</label>
-			<input type="text" name="anyo" value="<?= old('anyo')?>"> <br> <label>Precio</label>
-			<input type="number" step="0.01" name="precio"
-				value="<?=old('precio')?>"> <br> <label>Estado</label> <input
-				type="text" name="estado" value="<?= old('estado')?>"> <br> <input
-				type="submit" class="button" name="guardar" value="Guardar">
+			<input type="hidden" name="idlibro" value="<?= $libro->id?>"> 
+			
+			<label>Año</label>
+			<input type="text" name="anyo" value="<?= old('anyo')?>"> 
+			<br> 
+			
+			<label>Precio</label>
+			<input type="number" step="0.01" name="precio" value="<?=old('precio')?>">
+			<br> 
+				 
+				 
+			<label>Estado</label> 
+			<input	type="text" name="estado" value="<?= old('estado')?>">
+			<br><br><br><br> 
+			
+			<input	type="submit" class="button" name="guardar" value="Guardar">
 
 		</form>
 
 		<div class="centrdo">
-			<a class="button" onclick="history.back()">Atrás</a>
+			&nbsp;<a class="button" onclick="history.back()">Atrás</a>
 		</div>
 	</main>
 	<!-- FINALIZA ------------------------------------------ -->

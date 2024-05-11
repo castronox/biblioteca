@@ -2,11 +2,11 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Lista de libros - <?= APP_NAME ?></title>
+<title>Detalles del Libro - <?= $libro->titulo ?></title>
 
 <!-- META -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Lista de libros en <?= APP_NAME ?>">
+<meta name="description" content="Lista de libros de <?= APP_NAME ?>">
 <meta name="author" content="Cristian Castro">
 
 
