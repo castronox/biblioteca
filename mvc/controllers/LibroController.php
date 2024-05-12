@@ -171,16 +171,16 @@ class LibroController extends Controller {
 			throw new FormException('No se recibio la confirmación');
 		
 		$id = intval ($this->request->post('id'));		# Recupera el identificador
-		$libros = Libro::findOrFail($id);				# Recupera el libro
+		$libro = Libro::findOrFail($id);				# Recupera el libro
 		
 		# Si el libro tiene ejemplares, no permitiremos su borrado
-		if($libro->hasAny('Ejemplar'))
+		if($libro->hasAnyEjemplar('Ejemplar'))
 			throw new Exception("No se puede borrar el libro mientras tenga ejemplares");
 		
 			
 		# Intenta borrar el libro	
 			try{
-				$libro->deleteObject();
+				$libro->delete($libro->id);
 				Session::success("Se ha borrado el $libro->titulo correctamente.");
 				redirect("/Libro/list");
 				

@@ -19,45 +19,58 @@
 </head>
 <body>
 <?=(TEMPLATE)::getLogin()?>
-<?= (TEMPLATE)::getHeader('Lista de libros')?>
+<?= (TEMPLATE)::getHeader('Lista de socios')?>
 <?=(TEMPLATE)::getMenu()?>
 <?=(TEMPLATE)::getFlashes()?>
 
 <main>
 	
 	<h1><?= APP_NAME ?></h1>
-	<h2>Lista completa de libros </h2>
+	
+	<h2>Lista de socios</h2>
 	
 	<table>
 	
 	<tr>
-		<th>Título</th><th>Autor</th><th>Editorial</th><th>Operaciones</th>
+			<th>DNI</th><th>Nombre</th><th>Apellidos</th><th>Población</th><th>Operaciones</th>
 	</tr>
 	
-	<?php foreach ($libros as $libro){?>
+	<?php  foreach ($socios as $socio){?>
 	
-		<tr>
+	<tr>
+		<td><?= $socio->dni?></td>
+		<td><?= $socio->nombre?></td>
+		<td><?= $socio->apellidos?></td>
+		<td><?= $socio->poblacion?></td>
 		
-    		<td><?=$libro->titulo?></td>
-    		<td><?=$libro->autor?></td>
-    		<td><?=$libro->editorial?></td>
-    			
-    		<td>
-    			<a href ='/Libro/show/<?= $libro->id?>'>Ver</a> -
-    			<a href ='/Libro/edit/<?= $libro->id?>'>Actualizar</a> -
-    			<a href ='/Libro/delete/<?= $libro->id?>'>Borrar</a> 
-    		</td>
-		</tr>
-		<?php }?>	
+		<td>		
+			<a href = '/Socio/show/<?= $socio->id?>'>Ver</a>
+			<a href = '/Socio/edit/<?= $socio->id?>'>Editar</a>
+			<a href = '/Socio/delete/<?= $socio->id?>'>Borrar</a>
+		</td>	
+	</tr>
+	
+	<?php }?>
+	
 	</table>
-	
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
 </main>
 
 <?=(TEMPLATE)::getFooter()?>
 </body>
 </html>
-
 
 
 

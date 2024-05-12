@@ -23,7 +23,7 @@ class EjemplarController extends Controller {
 		
 		
 		
-		#C omprueba que llega el formulario con los datos
+		# Comprueba que llega el formulario con los datos
 		if(!$this->request->has('guardar'))
 			throw new FormException('No se recibieron los datos del ejemplar');
 		
@@ -57,6 +57,46 @@ class EjemplarController extends Controller {
 				redirect("/Ejemplar/create/$ejemplar->idlibro");
 		}
 	}
+	
+#------------------------------- Método para BORRAR un ejemplar libro --------------------------
+
+	# Borra un ejemplar
+	public function destroy(int $id = 0){
+		
+		# Recupera el ejemplar de la base de datos.
+		
+		$ejemplar = Ejemplar::findEjemplares($id, "No se encontro el ejemplar.");
+		
+		
+		
+		# Si hay préstamos no permitimos el borrado
+		if ($ejemplar->hasAny('Prestamo','idejemplar'))
+			throw new Exception('Este ejemplar no se puede borrar, tiene préstamos');
+		
+			
+			try{
+				$ejemplar->destroyEjemplar($id);
+				
+				# Flashea un mensaje de éxito y redirecciona
+				Session::success('Ejemplar eliminado correctamente.');
+				redirect("/Libro/edit/$ejemplar->idlibro");
+			}catch(SQLException $e){
+				Session::error('No se pudo eliminar el ejemplar');
+				
+				# Si estamos en modo debug nos llevara a los detalles de error 
+				# y quedará un registro.
+				
+				if(DEBUG)
+					throw new Exception($e->getMessage());
+				else 
+					redirect("/Libro/edit/$ejemplar->idlibro");
+			}
+		
+	}
+	
+	
+	
+	
 	
 	
 }

@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Lista de libros - <?= APP_NAME ?></title>
+<title>Edición de libros - <?= APP_NAME ?></title>
 
 <!-- META -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -79,27 +79,44 @@
 			 
 		</div>
 		
-				<section>
+		<section>
+		
+		<script>
+			function confirmar(id){
+				if(confirm('Seguro que deseas eliminar?'))
+					location.href = '/Ejemplar/destroy/'+id
+					
+			}		
+		</script>
+		
 		<h2>Ejemplares de <?= $libro->titulo?></h2>
+		
 		<?php 
 		if(!$ejemplares){
 			echo"<p>No hay ejemplares de este libro.</p>";
-		}else{ ?>
-			
-		<table>
+		}else{ ?>			
+		  <table>
 		<tr>
-			<th>ID</th><th>Año</th><th>Precio</th><th>Estado</th>
+			<th>ID</th><th>Año</th><th>Precio</th><th>Estado</th><th>Operaciones</th>
 		</tr>
-		<?php 
-		foreach($ejemplares as $ejemplar){
-			echo "<tr><td>$ejemplar->id</td>";	
-			echo "<td>$ejemplar->anyo</td>";
-			echo "<td>$ejemplar->precio</td>";
-		    echo "<td>$ejemplar->estado</td></tr>";			
-			}	
-		    ?>
-		</table>		
-  <?php 	}?>
+		<?php foreach($ejemplares as $ejemplar){?>
+					<tr>
+					
+					<td><?= $ejemplar->id ?></td>	
+					<td><?= $ejemplar->anyo ?></td>
+					<td><?= $ejemplar->precio ?></td>
+				    <td><?= $ejemplar->estado ?></td>
+				    <td class="centrado">
+		    
+		  	<?php if (!$ejemplar->hasAny('Prestamo')) {?>
+		    <a class="button" onclick="confirmar(<?= $ejemplar->id?>)">Eliminar</a>		    	
+				
+			<?php }	?>
+			</td>
+			</tr>
+		   <?php }?>
+			</table>		
+  		 <?php }?>
 		
 		<a class="button" href="/Ejemplar/create/<?= $libro->id?>">Nuevo ejemplar</a>
 		
