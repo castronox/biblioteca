@@ -30,21 +30,35 @@
 		<h2>Nuevo libro</h2>
 
 		<form method="POST" action="/libro/store">
-			<label>ISBN</label> <input type="text" name="isbn"
-				value="<?= old('isbn')?>"> <label>Titulo</label> <input type="text"
-				name="titulo" value="<?= old('titulo')?>"> <label>Editorial</label>
-			<input type="text" name="editorial" value="<?= old('editorial')?>"> <label>Autor</label>
-			<input type="text" name="autor" value="<?= old('autor')?>"> <label>Idioma:</label>
-
+			<label>ISBN</label> 
+			<input type="text" name="isbn" value="<?= old('isbn')?>"> 
+			
+			<label>Titulo</label> 
+			<input type="text" name="titulo" value="<?= old('titulo')?>"> 
+			
+			<label>Editorial</label>
+			<input type="text" name="editorial" value="<?= old('editorial')?>"> 
+			
+			<label>Autor</label>
+			<input type="text" name="autor" value="<?= old('autor')?>"> 
+			
+			
+			<label>Idioma:</label>
 			<select name="idioma">
-				<option value="Castellano" <?= oldSelected('idioma', 'Castellano')?>>Castellano</option>
-				<option value="Catalán" <?= oldSelected('idioma', 'Catalán')?>>Catalán</option>
-				<option value="Otros" <?= oldSelected('idioma', 'Otros')?>>Otros</option>
-			</select> <br> <label>Edición</label> <input type="number"
-				name="edicion" value="<?= old('edicion')?>"> <br> <label>Edad</label>
-			<input type="number" name="edadrecomendada"
-				value="<?= old('edadrecomendada')?>"> <br> <input type="submit"
-				class="button" name="guardar" value="Guardar">
+				<option value="Castellano"  <?= oldSelected('idioma', 'Castellano')?>>Castellano</option>
+				<option value="Catalán" 	<?= oldSelected('idioma', 'Catalán')?>>Catalán</option>
+				<option value="Otros" 		<?= oldSelected('idioma', 'Otros')?>>Otros</option>
+			</select><br>
+			
+			
+			<label>Edición</label> 
+			<input type="number" name="edicion" value="<?= old('edicion')?>"> 
+			<br> 
+			
+			<label>Edad</label>
+			<input type="number" name="edadrecomendada"	value="<?= old('edadrecomendada')?>"> 
+			<br> 
+			<input type="submit" class="button" name="guardar" value="Guardar">
 		</form>
 
 		<div class="centrado">

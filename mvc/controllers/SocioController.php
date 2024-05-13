@@ -19,6 +19,63 @@ class SocioController extends Controller {
 		] );
 	}
 	
+	#---------------------------V--CREAR UN SOCIO--V------------------------------------------------
+	
+	# Creamos el método de redirección al formulario.
+	
+	public function create(){	
+		
+		view ('socio/create');
+	}
+	
+	# Creamos el método para guardar el nuevo socio.
+	public function store(){
+		
+		
+	if(!$this->request->has('guardar'))
+		throw new FormException ('No se recibió el formulario');
+	
+		#------- Recogemos los datos del formulario
+		
+		$socio = new Socio(); # Creamos el objeto donde almacenaremos los datos del form.
+			
+		$socio->dni			=$this->request->post ('dni');
+		$socio->nombre		=$this->request->post ('nombre');
+		$socio->apellidos	=$this->request->post ('apellidos');
+		$socio->nacimiento  =$this->request->post ('nacimiento');
+		$socio->email		=$this->request->post ('email');
+		$socio->direccion	=$this->request->post ('direccion');
+		$socio->cp			=$this->request->post ('cp');
+		$socio->poblacion	=$this->request->post ('poblacion');
+		$socio->provincia   =$this->request->post ('provincia');
+		$socio->telefono	=$this->request->post ('alta');
+		
+		#Probamos a introducir al nuevo socio a la base de datos
+		try{
+			
+			$socio->save ();
+			
+			Session::success ("Guardado del socio $this->nombre $this->apellidos correcto.");
+			
+			# Si se cumple la condición redirecciona a los detalles del nuevo socio.
+			redirect ("/socio/show/$socio->id");
+		
+		}catch(SQLException $e){	# Si la condición no se cumple mandamos error
+			
+			Session::error(" No se han enviado los datos del socio $this->nombre $this->apellidos .");
+			
+			# Estando en modo debug. Nos envia a la vista del error
+			
+			if(DEBUG)
+				throw new Exception ($e->getMessage ());
+			
+				# Si no estamos en modo DEBUG nos redirecciona nuevamente a la creación del socio.
+				
+				redirect ('/Socio/create');
+			
+			
+		}
+	}
 	# --------------------------v- Método que muestra los detalles de un socio -v------------------
 	public function show(int $id = 0) {
 		

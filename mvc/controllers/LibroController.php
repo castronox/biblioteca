@@ -36,7 +36,7 @@ class LibroController extends Controller {
 		] );
 	}
 	
-	# -------------------------v- Método que muestra el formulario del nuevo libro -v--------------
+	# -------------------------v- Método que redirecciona la vista el formulario del nuevo libro -v--------------
 	public function create() {
 		view ( 'libro/create' );
 	}
@@ -52,13 +52,13 @@ class LibroController extends Controller {
 		$libro = new Libro (); # Creamos un objeto LIBRO en el que
 		                       # introduciremos los datos del formulario
 		
-		$libro->isbn = $this->request->post ( 'isbn' );
-		$libro->titulo = $this->request->post ( 'titulo' );
-		$libro->editorial = $this->request->post ( 'editorial' );
-		$libro->autor = $this->request->post ( 'autor' );
-		$libro->idioma = $this->request->post ( 'idioma' );
-		$libro->edicion = $this->request->post ( 'edicion' );
-		$libro->edadrecomendada = $this->request->post ( 'edadrecomendada' );
+		$libro->isbn = 				$this->request->post ( 'isbn' );
+		$libro->titulo = 			$this->request->post ( 'titulo' );
+		$libro->editorial = 		$this->request->post ( 'editorial' );
+		$libro->autor = 			$this->request->post ( 'autor' );
+		$libro->idioma = 			$this->request->post ( 'idioma' );
+		$libro->edicion = 			$this->request->post ( 'edicion' );
+		$libro->edadrecomendada = 	$this->request->post ( 'edadrecomendada' );
 		
 		# ------------------------------------------------------------------------
 		

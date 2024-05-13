@@ -121,7 +121,7 @@ class Template implements TemplateInterface
         $html .= "<li><a href='/Libro/'>Lista de libros</a></li>";
         $html .= "<li><a href='/Socio/'>Lista de socios</a></li>";
         $html .= "<li><a href='/Libro/create'>Nuevo Libro</a></li>";
-
+        $html .= "<li><a href='/Socio/create'>Nuevo Socio</a></li>";
         $html .= "</menu>";
 
         return $html;
