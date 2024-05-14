@@ -91,16 +91,28 @@
 		
 		<table>
 				<tr>
-					<th>ID</th><th>Tema</th>
+					<th>ID</th><th>Tema</th><th>Operaciones</th>
 				</tr>
 				<?php 
-				foreach($temas as $tema){
+				foreach($temas as $tema){?>	
 				
-					echo "<tr><td>$tema->id</td>";
-					echo "<td>$tema->tema</td></tr>";
-				}
+					<tr>
+					
+					<td><?=$tema->id?></td>
+					<td><?=$tema->tema?></td>
+					
+					<td class="centrado">
+						
+						<form method="POST" action="/Libro/removetema">
+							
+							<input type="hidden" name="idlibro" value="<?=$libro->id?>">
+							<input type="hidden" name="idtema" value="<?=$tema->id?>">
+							<input type="submit" class="button" name="remove" value="Eliminar">						
+						</form>					
+					</tr>				
+					<?php }?>	
 				
-				?>						
+									
 			</table>		
 		<?php }?>
 		

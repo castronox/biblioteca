@@ -25,6 +25,22 @@ class Libro extends Model{
 		
 		return $result->total;
 	}
+
+# -------------------------- MÉTODO PARA RECUPERAR UNA LISTA DE TEMAS DE UN LIBRO --------------------------------------------
+
+
+	#Retorna un array de tema
+	
+	public function getTemas():array{
+		
+		$consulta = "SELECT t.*
+				FROM temas t
+					INNER JOIN temas_libros tl ON t.id=tl.idtema
+				WHERE tl.idlibro =$this->id";
+		
+		return (DB_CLASS)::selectAll($consulta, 'Tema');
+	}
+	
 	
 	
 #----------------------MÉTODO PARA AÑADIR UN TEMA A UN LIBRO-------------------------------------------

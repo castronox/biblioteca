@@ -58,6 +58,22 @@
 			<label>Edad</label>
 			<input type="number" name="edadrecomendada"	value="<?= old('edadrecomendada')?>"> 
 			<br> 
+			
+			
+			<label>Tema</label>
+			<select name="idtema">
+			
+					<?php
+					foreach($listaTemas as $nuevoTema)	
+							echo "<option value ='$nuevoTema->id'>$nuevoTema->tema</option>";					
+					?>
+			
+			</select>
+			
+			<p> Puede añadir temas posteriormente, desde la opcion editar libro.</p>
+			
+			
+			
 			<input type="submit" class="button" name="guardar" value="Guardar">
 		</form>
 
