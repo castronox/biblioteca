@@ -10,12 +10,19 @@ class LibroController extends Controller {
 	}
 	
 	# ---------------------------v- Operación para listar los libros -v-----------------------------
-	public function list() {
-		$libros = Libro::all (); # Recupera todos los libros
-		                         
+	public function list(int $page = 1) {
+		$limit = RESULTS_PER_PAGE;
+		$total = Libro::total();
+		
+		$paginator = new Paginator('/Libro/list', $page,$limit,$total);
+		
+		# Recupera la lista de libros
+		$libros =Libro::orderBy('id', 'DESC', $limit, $paginator->getOffset());
+		
 		# Carga la vista que los muestra
-		view ( 'libro/list', [ 
-				'libros' => $libros
+		$this->loadView ( 'libro/list', [ 
+				'libros' => $libros,
+				'paginator' 	=> $paginator
 		] );
 	}
 	
@@ -39,8 +46,8 @@ class LibroController extends Controller {
 		# Carga la vista y le pasa el libro recuperado
 		view ( 'libro/show', [ 
 				'libro' 		=> $libro,
-				'ejemplares' 	=>$ejemplares,
-				'temas'			=>$temas
+				'ejemplares' 	=> $ejemplares,
+				'temas'			=> $temas
 		] );
 	}
 	

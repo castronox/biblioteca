@@ -90,7 +90,7 @@ class Template implements TemplateInterface
                     </a>
                 </figure>
                 <hgroup>
-            	   <h1>$titulo <span class='small italic'>en " . APP_NAME . "</small></h1>
+            	   <h1>$titulo <span class='small italic'>de " . APP_NAME . "</small></h1>
                    <p>" . ($subtitulo ?? '') . "</p>
                 </hgroup>  
             </header>
@@ -117,11 +117,11 @@ class Template implements TemplateInterface
             $html .= "<li><a href='/test'>Lista de test</a></li>";
 
         // entrada adicional de ejemplo:
-        $html .= "<li><a href='/'>TODO</a></li>";
-        $html .= "<li><a href='/Libro/'>Lista de libros</a></li>";
-        $html .= "<li><a href='/Socio/'>Lista de socios</a></li>";
-        $html .= "<li><a href='/Libro/create'>Nuevo Libro</a></li>";
-        $html .= "<li><a href='/Socio/create'>Nuevo Socio</a></li>";
+        $html .= "<li><a href='/Contacto'>Contacto</a></li>";
+        $html .= "<li><a href='/Libro/'>Libros</a></li>";
+        $html .= "<li><a href='/Socio/'>Socios</a></li>";
+        $html .= "<li><a href='/Libro/create'>Crear Libro</a></li>";
+        $html .= "<li><a href='/Socio/create'>Crear Socio</a></li>";
         $html .= "</menu>";
 
         return $html;

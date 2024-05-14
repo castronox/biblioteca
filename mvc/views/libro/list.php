@@ -28,6 +28,12 @@
 	<h1><?= APP_NAME ?></h1>
 	<h2>Lista completa de libros </h2>
 	
+	<?php  if ($libros){?>
+	
+		<div class="derecha">
+			<?= $paginator->stats()?>
+		</div>
+	
 	<table>
 	
 	<tr>
@@ -50,7 +56,10 @@
 		</tr>
 		<?php }?>	
 	</table>
-	
+		<?= $paginator->ellipsisLinks() ?>
+		<?php }else{ ?>
+			<p>No hay libros que mostrar.</p>
+		<?php }?>
 	
 </main>
 
