@@ -44,11 +44,14 @@
 <input type="number" class="centrado" name="idejemplar" >
 <br>
 
-<label>Fecha del prestamo</label>
-<input type="date" name="limite" value="<?= old('limite')?>">
-<br>
-<label>Incidencias</label>
-<input type="text" name="incidencias">
+<label>Límite</label>
+
+<?php 
+$limite = new DateTime();
+$limite = $limite->modify('+7 days')->format('Y-m-d');
+?>
+
+<input type="date" name="limite" value="<?= old('limite', $limite)?>">
 
 <br><br><br>
 

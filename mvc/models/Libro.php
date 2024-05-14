@@ -25,5 +25,30 @@ class Libro extends Model{
 		
 		return $result->total;
 	}
+	
+	
+#----------------------MÉTODO PARA AÑADIR UN TEMA A UN LIBRO-------------------------------------------
+	public function addTema(int $idtema):int{
+		
+		#Preparamos la consulta
+		$consulta = "INSERT INTO temas_libros(idlibro, idtema) VALUES($this->id, $idtema)";
+
+		# Ejecuta la consulta
+		return (DB_CLASS)::insert($consulta);
+		
+	}
+	
+#----------------------MÉTODO PARA ELIMINAR UN TEMA DE UN LIBRO-------------------------------------------	
+	
+	public function removeTema(int $idtema):int{
+		
+		# Preparamos la consulta 
+		$consulta = "DELETE FROM temas_libros WHERE idlibro = $this->id AND idtema= $idtema";
+		
+		#Ejecuta la consulta
+		return (DB_CLASS)::delete($consulta);
+	}
+	
+	
 }
 

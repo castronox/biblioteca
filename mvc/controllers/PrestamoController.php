@@ -22,49 +22,82 @@ class PrestamoController extends Controller{
 	
 	# Guarda el nuevo prestamo
 	
-	public function store(){
+	public function store() {
+		// Verifica si se enviaron los datos del formulario
+		if(!$this->request->has('guardar')) {
+			throw new FormException('No se recibieron los datos del préstamo');
+		}
 		
-				
+		// Crea una nueva instancia de Prestamo
+		$prestamo = new Prestamo();
 		
-		# Comprueba que llega el formulario con los datos
+		// Recupera los datos del formulario
 		
-		if(!$this->request->has('guardar'))
-			throw new FormException ('No se recibieron los datos del prestamo');
+		$prestamo->idsocio = $this->request->post('idsocio');
+		$prestamo->idejemplar = $this->request->post('idejemplar');
 		
-			$prestamo = new Prestamo();
+		// Calcula la fecha límite (7 días después de la fecha actual)
+		# $fecha_actual = new DateTime();
+		# $fecha_limite = $fecha_actual->modify('+7 days')->format('Y-m-d');
+		
+		// Asigna la fecha límite al campo 'limite' del préstamo
+		$prestamo->limite = $this->request->post('limite');
+		
+		// Guarda el préstamo en la base de datos
+		try {
+			$prestamo->save();
 			
-			# Recupera los datos del formulario de creación de prestamo que llegan por POST
-			$prestamo->id			=$this->request->post('idprestamo');
-			$prestamo->idsocio		=$this->request->post('idsocio');
-			$prestamo->idejemplar	=$this->request->post('idejemplar');
-			$prestamo->limite		=$this->request->post('limite');
-			$prestamo->incidencia	=$this->request->post('incidencias');
+			// Recupera los datos del socio para mostrar en el mensaje de éxito
+			$socio = Socio::findOrFail($prestamo->idsocio);
+			
+			// Muestra un mensaje de éxito y redirige a la página de edición del socio
+			Session::success("Guardado del préstamo $prestamo->id del socio $socio->nombre $socio->apellidos CORRECTO.");
+			redirect("/Socio/edit/$prestamo->idsocio");
+		} catch (SQLExcpetion $e) {
+			// En caso de error, muestra un mensaje de error y redirige nuevamente a la creación del préstamo
+			Session::error("No se pudieron guardar los datos del préstamo.");
+			if(DEBUG) {
+				throw new Exception($e->getMessage());
+			} else {
+				redirect("Prestamo/create/$prestamo->idsocio");
+			}
+		}
+			
+			}
+
+#--------------- MÉTODO DEVOLVER PRESTAMO ------------------------------------------------------------				
+			
+	public function devolucion(int $id = 0){
+			
+			# Recupera el préstamo 
+			$prestamo = Prestamo::findOrFail($id);	
 			
 			
+			# Pone la fecha de devolución
+			$prestamo->devolucion = date('Y-m-d');
 			
-			# Probamos a introducir los datos
+			# Intenta actualizar
 			
 			try{
 				
-				$prestamo->save();
 				
-				$socio = Socio::findOrFail($prestamo->idsocio);
+				$prestamo->update();
+				Session::success("La devolución del prestamo $prestamo->id ha sido regitrada correctamente.");
+				redirect("/Socio/edit/$prestamo->idsocio");
 				
-				Session::success ("Guardado del prestamo $prestamo->id del socio $socio->nombre $socio->apellidos CORRECTO. ");
-				#redirect("/Socio/edit/$prestamo->idsocio");
-			}catch (SQLExcpetion $e){
+			# Si falla..	
+			}catch (SQLExcpetion){
 				
-				Session::error("No se han enviado los dato del prestamo $this->id del socio $socio->nombre $socio->apellidos");
+				Session::error('No se ha podido registrar la devolución.');
 				
 				if(DEBUG)
-					throw new Exception ( $e->getMessage ());
+					throw new Exception ($e->getMessage());
 				
-					# Si no estamos en debug nos redirecciona nuevamonete a la creacion del prestamo.
-					else
-					redirect("Prestamo/create/$socio->id");
+					redirect("/Socio/edit/$prestamo->idsocio");
 			}
-	}
-	
+			
+			
+			}
 	
 	
 }

@@ -2,7 +2,9 @@
 
 class Ejemplar extends Model {
 
-	
+	#
+	# protected static string $table = "ejemplares" ;
+		
 	# -- Ya que el método save() de la base de datos la mágia lo guarda como Ejemplars
 	
 	public function saveEjemplares():bool{

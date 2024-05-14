@@ -26,13 +26,21 @@ class LibroController extends Controller {
 		if (! $id)
 			throw new NothigToFindException ( 'No se indicó el libro a buscar.' );
 		
+		#Recupera el libro
 		$libro = Libro::findOrFail ( $id, "No se encontró el libro seleccionado" );
+		
+		
+		# Recupera los ejemplares
 		$ejemplares = $libro->getEjemplares('Ejemplar');
+		
+		$temas = $libro->belongsToMany('Tema', 'temas_libros');
+		
 		
 		# Carga la vista y le pasa el libro recuperado
 		view ( 'libro/show', [ 
-				'libro' => $libro,
-				'ejemplares' =>$ejemplares
+				'libro' 		=> $libro,
+				'ejemplares' 	=>$ejemplares,
+				'temas'			=>$temas
 		] );
 	}
 	
@@ -100,11 +108,18 @@ class LibroController extends Controller {
 	public function edit(int $id = 0) {
 		$libro = Libro::findOrFail ( $id, "No se encontró el libro." );
 		$ejemplares = $libro->getEjemplares('Ejemplar');
-		# Carga la vista con el formulario de edición
 		
+		$temas = $libro->belongsToMany('Tema', 'temas_libros');
+		
+		
+		$listaTemas= Tema::orderBy('tema');
+		
+		# Carga la vista con el formulario de edición			
 		view ( 'libro/edit', [ 
-				'libro' => $libro,
-				'ejemplares' =>$ejemplares
+				'libro' 		=> $libro,
+				'ejemplares' 	=>$ejemplares,
+				'temas'			=>$temas,
+				'listaTemas'	=>$listaTemas
 		] );
 	}
 	

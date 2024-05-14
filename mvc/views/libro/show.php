@@ -54,6 +54,32 @@
 		</div>
 		
 		<section>
+		<h2>Temas tratados por <?= $libro->titulo?></h2>
+		
+		<?php 
+		if(!$temas){
+			echo "No se han indicado temas para este libro";
+		}else{?>
+		
+		<table>
+				<tr>
+					<th>ID</th><th>Tema</th>
+				</tr>
+				<?php 
+				foreach($temas as $tema){
+				
+					echo "<tr><td>$tema->id</td>";
+					echo "<td>$tema->tema</td></tr>";
+				}
+				
+				?>						
+			</table>		
+		<?php }?>		
+	</section>
+		
+		
+		
+		<section>
 		<h2>Ejemplares de <?= $libro->titulo?></h2>
 		<?php 
 		if(!$ejemplares){

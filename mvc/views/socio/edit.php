@@ -19,7 +19,7 @@
 </head>
 <body>
 <?=(TEMPLATE)::getLogin()?>
-<?= (TEMPLATE)::getHeader('Lista de socios')?>
+<?= (TEMPLATE)::getHeader('Editar socios')?>
 <?=(TEMPLATE)::getMenu()?>
 <?=(TEMPLATE)::getFlashes()?>
 
@@ -27,14 +27,14 @@
 	
 	
 	
-	<main>
+	<main class="centrado">
 
 		<h1><?= APP_NAME ?></h1>
 		<h2>Edición del Socio <?= $socio->nombre?></h2>
 	
 	
 	
-			<form method="POST" action="/Socio/update">
+			<form method="POST" class ="centrado" action="/Socio/update">
 
 			<!-- Input oculto que contiene el ID del libro a actualizar -->
 
@@ -81,7 +81,7 @@
 			
 			<label>Teléfono</label>
 			<input type="text" name="telefono" value="<?= old('telefono',$socio->telefono)?>">
-			<br>
+			<br><br>
 			
 			
 			<input class="button" type="submit" name="actualizar" value="Actualizar">
@@ -90,12 +90,12 @@
 	
 	
 	
-							
+			<br><br><br><br>				
 		<div class="centrado">
 		<a class="button" onclick="history.back()">Atrás</a>
 		<a class="button" href="/socio/list">Lista de socios</a>
 		
-		<a class="button" href="/socio/delete/<?= $socio->id?>">Borrar socio</a>
+		
 		
 		</div>
 	
@@ -108,7 +108,7 @@
 			
 		<table>
 		<tr>
-			<th>ID Prestamo</th><th>Obtención</th><th>Devolución</th><th>Incidencias</th>
+			<th>ID Prestamo</th><th>Obtención</th><th>Devolución</th><th>Incidencias</th><th>Operaciones</th>
 		</tr>
 		<?php foreach($prestamos as $prestamo){?>
 					<tr>
@@ -117,6 +117,11 @@
 					<td><?= $prestamo->prestamo ?></td>
 					<td><?= $prestamo->devolucion ?></td>
 				    <td><?= $prestamo->incidencia ?></td>
+		<td>		
+			<a href = '/Prestamo/devolucion/<?= $prestamo->id?>'>Devolver</a>
+			
+			
+		</td>	
 				    
 			</tr>
 		   <?php }?>

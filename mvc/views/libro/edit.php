@@ -79,6 +79,49 @@
 			 
 		</div>
 		
+		
+		
+		<section>
+		<h2>Temas tratados por <?= $libro->titulo?></h2>
+		
+		<?php 
+		if(!$temas){
+			echo "No se han indicado temas para este libro";
+		}else{?>
+		
+		<table>
+				<tr>
+					<th>ID</th><th>Tema</th>
+				</tr>
+				<?php 
+				foreach($temas as $tema){
+				
+					echo "<tr><td>$tema->id</td>";
+					echo "<td>$tema->tema</td></tr>";
+				}
+				
+				?>						
+			</table>		
+		<?php }?>
+		
+		<br>
+		<form method="POST" action="/Libro/addtema">
+		<input type="hidden" name="idlibro" value="<?= $libro->id?>">
+		<select name="idtema">
+		<?php 
+		
+			foreach ($listaTemas as $nuevoTema)
+				echo "<option value='$nuevoTema->id'>$nuevoTema->tema</option>'";
+			
+				
+		?>
+		</select>
+		
+		<input class="button" type="submit" name="add" value="Añadir tema">
+		</form>		
+	</section>
+		
+		
 		<section>
 		
 		<script>
