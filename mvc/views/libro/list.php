@@ -28,6 +28,28 @@
 	<h1><?= APP_NAME ?></h1>
 	<h2>Lista completa de libros </h2>
 	
+	<?php if($filtro){
+		# El método removeFilterForm necesita conocer el filtro
+		# y la ruta a la que se envía el formulario
+		echo (TEMPLATE)::removeFilterForm($filtro, '/Libro/list');
+		
+	}else{
+		
+		echo (TEMPLATE)::filterForm(
+				# Ruta a la que se envía el formulario
+		'/Libro/list',
+				# Lista de campos para "Buscar en"
+		['Titulo' => 'titulo', 'Editorial' => 'editorial', 'Autor' => 'autor'],
+				# Lista de campos para "ordenado por"
+		['Titulo' => 'titulo', 'Editorial' => 'editorial', 'Autor' => 'autor'],
+				# Valor por defecto para "Buscar en"		
+		'Autor',
+				# Valor por defecto para " Ordenado por"
+		'Título'
+				
+				);
+	}?>
+	
 	<?php  if ($libros){?>
 	
 		<div class="derecha">

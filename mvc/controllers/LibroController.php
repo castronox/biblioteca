@@ -11,19 +11,43 @@ class LibroController extends Controller {
 	
 	# ---------------------------v- Operación para listar los libros -v-----------------------------
 	public function list(int $page = 1) {
-		$limit = RESULTS_PER_PAGE;
-		$total = Libro::total();
 		
+		$filtro = Filter::apply('libros');
+		$limit = RESULTS_PER_PAGE;
+		
+		
+		# Si hay filtro
+		if ($filtro){
+			
+		$total = Libro::filteredResults($filtro);
+		
+		# Crea el OBJETO paginador
 		$paginator = new Paginator('/Libro/list', $page,$limit,$total);
 		
-		# Recupera la lista de libros
-		$libros =Libro::orderBy('id', 'DESC', $limit, $paginator->getOffset());
+		# Recupera la lista de libros con el filtro aplicado
+		$libros =Libro::filter($filtro, $limit, $paginator->getOffset());
+		
+		}else{
+			
+		# Recupera el total de libros
+		$total = Libro::total();
+		
+		# Crea el OBJETO paginador
+		$paginator = new Paginator('/Libro/list', $page,$limit,$total);
+		
+		#Recupera todos los libros
+		$libros = Libro::orderBy('titulo', 'DESC', $limit, $paginator->getOffset());		
+		}
+		
 		
 		# Carga la vista que los muestra
 		$this->loadView ( 'libro/list', [ 
-				'libros' => $libros,
-				'paginator' 	=> $paginator
+				'libros'	 	=> $libros,
+				'paginator'  	=> $paginator,
+				'filtro'		=> $filtro
 		] );
+	
+		
 	}
 	
 	# --------------------------v- Método que muestra los detalles de un libro -v------------------
