@@ -55,7 +55,7 @@
 
 		</form>
 
-		<div class="centrdo">
+		<div class="centrado">
 			&nbsp;<a class="button" onclick="history.back()">Atrás</a>
 		</div>
 	</main>

@@ -30,7 +30,7 @@
 	<main>
 
 		<h1><?= APP_NAME ?></h1>
-		<h2>Edición del Socio <?= $socio->titulo?></h2>
+		<h2>Edición del Socio <?= $socio->nombre?></h2>
 	
 	
 	
@@ -94,39 +94,39 @@
 		<div class="centrado">
 		<a class="button" onclick="history.back()">Atrás</a>
 		<a class="button" href="/socio/list">Lista de socios</a>
-		<a class="button" href="/socio/edit/<?= $socio->id?>">Editar socio</a>
+		
 		<a class="button" href="/socio/delete/<?= $socio->id?>">Borrar socio</a>
 		
 		</div>
 	
+	<section>
+					<h2>Prestamos de <?= $socio->nombre?></h2>
+		<?php 
+		if(!$prestamos){
+			echo"<p>No hay Prestamos de este socio.</p>";
+		}else{ ?>
+			
+		<table>
+		<tr>
+			<th>ID Prestamo</th><th>Obtención</th><th>Devolución</th><th>Incidencias</th>
+		</tr>
+		<?php foreach($prestamos as $prestamo){?>
+					<tr>
+					
+					<td><?= $prestamo->id ?></td>	
+					<td><?= $prestamo->prestamo ?></td>
+					<td><?= $prestamo->devolucion ?></td>
+				    <td><?= $prestamo->incidencia ?></td>
+				    
+			</tr>
+		   <?php }?>
+			</table>
+		<?php }?>		
+  		 <a class="button" href="/Prestamo/create/<?= $socio->id?>">Nuevo Prestamo</a>
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	</section>
+	</main>
+
 	
 	<!--------------------------------- FINALIZA ------------------------------------------ -->
 

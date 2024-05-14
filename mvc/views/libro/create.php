@@ -19,7 +19,7 @@
 </head>
 <body>
 <?=(TEMPLATE)::getLogin()?>
-<?= (TEMPLATE)::getHeader('Lista de libros')?>
+<?= (TEMPLATE)::getHeader('Crear nuevo libro')?>
 <?=(TEMPLATE)::getMenu()?>
 <?=(TEMPLATE)::getFlashes()?>
 

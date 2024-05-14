@@ -48,6 +48,31 @@
 		<a class="button" href="/socio/delete/<?= $socio->id?>">Borrar socio</a>
 		
 		</div>
+		
+		
+				<h2>Prestamos de <?= $socio->nombre?></h2>
+		<?php 
+		if(!$prestamos){
+			echo"<p>No hay Prestamos de este Socio.</p>";
+		}else{ ?>
+			
+		<table>
+		<tr>
+			<th>ID Ejemplar</th><th>Obtención</th><th>Devolución</th><th>Incidencias</th>
+		</tr>
+		<?php 
+		foreach($prestamos as $prestamo){
+			echo "<tr><td>$prestamo->id</td>";	
+			echo "<td>$prestamo->prestamo</td>";
+			echo "<td>$prestamo->limite</td>";
+			echo "<td>$prestamo->incidencia</td>";			
+			}	
+		    ?>
+		</table>		
+  <?php 	}?>
+
+		</section>
+		
 </main>
 
 <?=(TEMPLATE)::getFooter()?>

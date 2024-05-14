@@ -48,7 +48,7 @@ class SocioController extends Controller {
 		$socio->cp			=$this->request->post ('cp');
 		$socio->poblacion	=$this->request->post ('poblacion');
 		$socio->provincia   =$this->request->post ('provincia');
-		$socio->telefono	=$this->request->post ('alta');
+		$socio->telefono	=$this->request->post ('telefono');
 		
 		#Probamos a introducir al nuevo socio a la base de datos
 		try{
@@ -84,13 +84,15 @@ class SocioController extends Controller {
 			throw new NothigToFindException ( 'No se indicó el socio a buscar.' );
 			
 			$socio = Socio::findOrFail ( $id, "No se encontró el socio seleccionado" );
-			#$socio = $socio->get('Prestamos');
+			$prestamos = $socio->hasMany('Prestamo');
 			
 			# Carga la vista y le pasa el socio recuperado
 			view ( 'socio/show', [
 					'socio' => $socio,
 					'prestamos' =>$prestamos
 			] );
+			
+			
 	}
 	
 	
@@ -101,11 +103,12 @@ class SocioController extends Controller {
 	public function edit(int $id = 0){
 		
 		$socio = Socio::findOrFail($id, "No se encontró el socio");
-		
+		$prestamos = $socio->hasMany('Prestamo');
 		#Carga la vista con el formulario de edición de socio
 		
 		view( 'socio/edit', [
-			'socio' => $socio	
+			'socio' => $socio,
+				'prestamos' =>$prestamos
 		]);
 	}
 	

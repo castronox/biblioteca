@@ -110,7 +110,7 @@ class LibroController extends Controller {
 	
 	# Funcion para actualizar el libro
 	public function update() {
-		if (! $this->request->has ( 'actualizar' ))
+		if (! $this->request->has ( 'actualizar'))
 			throw new FormException ( 'No se recibieron datos' );
 		
 		$id = intval ( $this->request->post ( 'id' ) ); # Recuperar el id via POST
