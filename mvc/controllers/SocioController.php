@@ -173,14 +173,14 @@ class SocioController extends Controller {
 	# Elimina el Socio desde la vista de confimación 
 	public function destroy(){
 		if (!$this->request->has('borrar'))
-			throw new FormExeptio('No se recibio confirmación de borrado.');
+			throw new FormExeption('No se recibio confirmación de borrado.');
 		
 			$id= intval($this->request->post('id')); 		# Recupera el identificador.
 			$socio= Socio::findOrFail($id);					# Recupera el socio
 			
 			# Si el socio tiene prestamos, no permitimos el borrado
 			if($socio->hasAny('Prestamo'))
-				throw new Exceptio ( "No se puede eliminar el socio ya que posee ejemplares");
+				throw new Exception ( "No se puede eliminar el socio ya que posee ejemplares");
 			
 			# Intenta borrar el libro
 				try{
