@@ -159,12 +159,72 @@ class SocioController extends Controller {
 	}
 	
 	
+
+#---------------------------------MÉTODO PARA BORRAR UN LIBRO --------------------------------------------
+	# Busca el socio y muestra la vista
+	public function delete(int $id=0){
+		$socio = Socio::findOrFail($id, "No existe el Socio");
+		
+		view('socio/delete',[
+				'socio' => $socio
+		]);
+	}
+	
+	# Elimina el Socio desde la vista de confimación 
+	public function destroy(){
+		if (!$this->request->has('borrar'))
+			throw new FormExeptio('No se recibio confirmación de borrado.');
+		
+			$id= intval($this->request->post('id')); 		# Recupera el identificador.
+			$socio= Socio::findOrFail($id);					# Recupera el socio
+			
+			# Si el socio tiene prestamos, no permitimos el borrado
+			if($socio->hasAny('Prestamo'))
+				throw new Exceptio ( "No se puede eliminar el socio ya que posee ejemplares");
+			
+			# Intenta borrar el libro
+				try{
+					$socio->delete($socio->id);
+					Session::success("Se ha borrado el socio $socio->nombre $socio->apellidos correctamente.");
+					redirect("/Socio/list");
+					
+					# Si no lo Borrra produce un error y lo registra en ERRORES 
+				}catch(SQLException $e){
+					Session::error ("No se ha ejecutado el borrado de $socio->nombre");
+					
+					# Si estamos en modo DEBUG, nos llevará a la vista del error
+					if(DEBUG)
+						throw new Exception ($e->getMessage);
+					
+						# Redireccionamos al confirmado de borrado en caso contrario
+						redirect("/Socio/delete/$id");
+				}
+	}
 	
 	
 	
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
 	
 	
 	

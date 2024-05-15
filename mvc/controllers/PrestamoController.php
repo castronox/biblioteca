@@ -97,7 +97,9 @@ class PrestamoController extends Controller{
 			}
 			
 			
-			}
+	}
+	
+
 	
 	
 }

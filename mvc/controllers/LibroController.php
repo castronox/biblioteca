@@ -203,19 +203,14 @@ class LibroController extends Controller {
 	}
 	
 	#------------------------V-- BORRAR UN LIBRO --V--------------------------------------
-	public function delete(int $id=0){
-		
+	public function delete(int $id=0){		
 		$libro = Libro::findOrFail($id,"No existe el libro");
 		
-		view ('libro/delete',[
-				
+		view ('libro/delete',[				
 				'libro' => $libro
 		]);
 	}	
-	
-	
-	
-	
+
 	public function destroy(){
 		
 		# Comprueba que llega el formulario
@@ -229,16 +224,14 @@ class LibroController extends Controller {
 		# Si el libro tiene ejemplares, no permitiremos su borrado
 		if($libro->hasAnyEjemplar('Ejemplar'))
 			throw new Exception("No se puede borrar el libro mientras tenga ejemplares");
-		
-			
+					
 		# Intenta borrar el libro	
 			try{
 				$libro->delete($libro->id);
 				Session::success("Se ha borrado el $libro->titulo correctamente.");
 				redirect("/Libro/list");
-				
-				# Si no lo borra produce un error en la operación con la BDD
-							
+								
+				# Si no lo borra produce un error en la operación con la BDD							
 			}catch(SQLExcpetion $e){
 				Session::error("No se pudo borrar el libro $libro->titulo de la BDD");
 				
@@ -246,8 +239,7 @@ class LibroController extends Controller {
 				if(DEBUG)
 					throw new Exception ($e->getMessage());
 				
-					# Si no retornamos al formulario de confirmación de borrado.
-					
+					# Si no retornamos al formulario de confirmación de borrado.					
 					redirect("/Libro/delete/$id");
 			}
 	}
