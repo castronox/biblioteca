@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Borrar el Socio - <?= $socio->nombre . " ".$socio->apellidos?></title>
+<title>Borrar el Socio - <?= $socio->nombre . " " .$socio->apellidos?></title>
 
 <!-- META -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -37,11 +37,11 @@
 		
 		</form>
 		
-						<div class="centrado">
-			<a class="button" onclick="history.back()">Atrás</a> <a
-				class="button" href="/socio/list">Lista de socios</a> <a
-				class="button" href="/socio/show/<?= $socio->id?>">Detalles</a> <a
-				class="button" href="/socio/edit/<?= $socio->id?>">Borrado</a>
+		<div class="centrado">
+			<a class="button" onclick="history.back()">Atrás</a>
+			<a class="button" href="/socio/list">Lista de socios</a>
+			<a class="button" href="/socio/show/<?= $socio->id?>">Detalles</a>
+			<a class="button" href="/socio/edit/<?= $socio->id?>">Borrado</a>
 		</div>
 
 

@@ -10,13 +10,41 @@ class SocioController extends Controller {
 	
 	
 	# ---------------------------v- Operación para listar los Socios -v-----------------------------
-	public function list() {
-		$socios = Socio::all (); # Recupera todos los socios
+	public function list(int $page = 1) {
 		
-		# Carga la vista que los muestra la lista Socios
-		view ( 'Socio/list', [
-				'socios' => $socios
-		] );
+		$filtro = Filter::apply('socios'); 
+		$limit = RESULTS_PER_PAGE;
+		
+		# Si hay filtro
+		if($filtro){
+		
+			$total = Socio::filteredResults($filtro);
+			
+			# Crea el objeto paginador
+			$paginator = new Paginator('/Socio/list', $page, $limit, $total);
+			
+			# Recupera la lista de libros con el filtro aplicado
+			$socios = Socio::filter($filtro, $limit, $paginator->getOffset());
+								
+			}else{
+			
+			# Recupera el total de Socios
+			$total = Socio::total();
+			
+			# Crea el objeto paginador para introducir el listado de socios
+			$paginator = new Paginator('/Socio/list', $page, $limit, $total);
+			
+			# Recupera todos los Socios
+			$socios = Socio::orderBy('id', 'DESC', $limit, $paginator->getOffset());
+			}
+		
+			
+			# Carga la vista para mostrar
+			$this->loadView('socio/list',[					
+					'socios' 		=> $socios,
+					'paginator' 	=>$paginator,
+					'filtro'   		=> $filtro					
+			] );
 	}
 	
 	#---------------------------V--CREAR UN SOCIO--V------------------------------------------------
@@ -200,57 +228,6 @@ class SocioController extends Controller {
 						redirect("/Socio/delete/$id");
 				}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

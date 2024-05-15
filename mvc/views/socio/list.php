@@ -29,6 +29,38 @@
 	
 	<h2>Lista de socios</h2>
 	
+	<?php
+	
+	if ($filtro){
+		
+		# El método removeFilterForm necesita conocer el Filtro		
+		# y la ruta a la que se envia el formulario.
+		
+		echo (TEMPLATE)::removeFilterForm($filtro, '/Socio/list');
+	}else{
+		
+		echo (TEMPLATE)::filterForm(
+				
+					# Ruta a la que se envía el formulario
+			'/Socio/list',
+					# Lista de campos para "Buscar en"
+			['Nombre' => 'nombre', 'Poblacion' => 'poblacion', 'Apellidos' => 'apellidos' ],
+					# Lista de campos para "Ordenado por"
+			['Nombre' => 'nombre', 'Poblacion' => 'poblacion', 'Apellidos' => 'apellidos' ],
+					
+					# Valor por defecto para "Buscar en"
+					'Nombre',
+					# Valor por defecto para "Ordenado por"
+					'Titulo'				
+				);
+	}?>
+	
+		<?php if ($socios){?>
+		
+			<div class="derecha">
+				<?= $paginator->stats()?>
+			</div>
+	
 	<table>
 	
 	<tr>
@@ -50,9 +82,12 @@
 		</td>	
 	</tr>
 	
-	<?php }?>
-	
+	<?php }?>	
 	</table>
+	<?= $paginator->ellipsisLinks() ?>
+	<?php }else{?>
+	<p>No hay libros que mostrar.</p>
+	<?php }?>
 
 
 
