@@ -76,9 +76,9 @@
 		<td><?= $tema->descripcion?></td>
 		
 		<td>
-			<a href='/Tema/show/<?= $tema->id?>'>Mostrar tema</a>
-			<a href='/Tema/edit/<?= $tema->id?>'>Actualizar tema</a>
-			<a href='/Tema/delete/<?= $tema->id?>'>Borrar tema</a>
+			<a href='/Tema/show/<?= $tema->id?>'>| Mostrar |</a>
+			<a href='/Tema/edit/<?= $tema->id?>'>Actualizar |</a>
+			<a href='/Tema/delete/<?= $tema->id?>'>Borrar | </a>
 		</td>		
 	</tr>
 	
