@@ -21,6 +21,10 @@
 <?=(TEMPLATE)::getLogin()?>
 <?= (TEMPLATE)::getHeader('Lista de socios')?>
 <?=(TEMPLATE)::getMenu()?>
+<?=(TEMPLATE)::getBreadCrumbs([
+
+'Socio'=> '/Socio/list'
+])  ?>
 <?=(TEMPLATE)::getFlashes()?>
 
 <main>

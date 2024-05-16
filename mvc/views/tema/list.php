@@ -21,6 +21,10 @@
 <?=(TEMPLATE)::getLogin()?>
 <?= (TEMPLATE)::getHeader('Lista de temas')?>
 <?=(TEMPLATE)::getMenu()?>
+<?=(TEMPLATE)::getBreadCrumbs([
+
+'Temas'=> '/Tema/list'
+])  ?>
 <?=(TEMPLATE)::getFlashes()?>
 
 <main>
