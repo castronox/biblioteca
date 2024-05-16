@@ -21,6 +21,12 @@
 <?=(TEMPLATE)::getLogin()?>
 <?= (TEMPLATE)::getHeader('Lista de libros')?>
 <?=(TEMPLATE)::getMenu()?>
+<?=(TEMPLATE)::getBreadCrumbs([
+
+	'Libros'=> '/Libro/list',
+	'Nuevo'=> NULL,
+])  ?>
+
 <?=(TEMPLATE)::getFlashes()?>
 
 <main>
