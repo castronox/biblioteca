@@ -30,7 +30,7 @@ class TemaController extends Controller
 
 
 	#-------------------------------------------------------------------------#
-	#				>	Operación para listar/ mostrar  TEMAS	 <		      #
+	#-------------->  Operación para listar/ mostrar   TEMAS  <---------------#
 	#-------------------------------------------------------------------------#	
 	#                                                                      
 	#                                                                      
@@ -85,7 +85,7 @@ class TemaController extends Controller
 
 
 	#---------------------------------------------------------------------#
-	#------------------->MÉTODO PARA CREAR NUEVO TEMA<--------------------#
+	#---------------->   MÉTODO PARA CREAR NUEVO TEMA   <-----------------#
 	#---------------------------------------------------------------------#
 	#                                                                      
 	#                                                                      
@@ -239,23 +239,55 @@ class TemaController extends Controller
 	#                                                                      
 	#                                                                      
 
+	# Recupera el id del tema para trabajar con el.
+	public function delete(int $id = 0)
+	{
+
+		$tema = Tema::findOrFail($id, "No existe el tema");
+
+		view('Tema/delete', [
+
+			'tema' => $tema
+		]);
+
+	}
+
+	# Intentamos destruir el libro
+
+
+	public function destroy()
+	{
+		# Comprueba que llega el formulario
+		if (!$this->request->has('borrar'))
+			throw new FormException('No se recibió el formulario');
+
+		# Toma el ID necesario.
+		$id = intval($this->request->post('id'));
+
+		$tema = Tema::findOrFail($id);
+
+		# Intenta borrar el tema
+
+		try {
+			$tema->delete($tema->id);
+
+			Session::success("Se ha eliminado el $tema->tema correctamente.");
+			redirect("/Tema/list/");
+		} catch (SQLException $e) {
+
+			Session::error("No se pudo eliminar el tema $tema->tema");
+
+			if (DEBUG)
+				throw new Exception($e->getMessage());
+			else {
+				redirect("/Tema/list/");
+			}
 
 
 
 
+		}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+	}
 
 }
