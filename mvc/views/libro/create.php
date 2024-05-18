@@ -32,7 +32,7 @@
 		<h2>Nuevo libro</h2>
 		<div class="flex-container">
 			<section class="flex1 centrado">
-				<form method="POST" enctype="multipart/form-data" action="/libro/store">
+				<form method="POST" enctype="multipart/form-data" action="/Libro/store">
 					<label>ISBN</label>
 					<input type="text" name="isbn" value="<?= old('isbn') ?>">
 					<br>
@@ -46,7 +46,8 @@
 					<input type="text" name="autor" value="<?= old('autor') ?>">
 					<br>
 
-					
+					<label>Portada</label>
+					<input type="file" name="portada" accept="image/*" id="file-with-preview">
 
 					<label>Idioma:</label>
 					<select name="idioma">
@@ -84,8 +85,7 @@
 			</section>
 			<section class="flex1 centrado">
 				<script src="/js/Preview.js" ></script>
-				<label>Portada</label>
-					<input type="file" name="portada" accept="image/*" id="file-with-preview">
+				
 					<br>
 
 					<figure class="flex1 centrado">

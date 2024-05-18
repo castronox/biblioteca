@@ -47,7 +47,6 @@ class LibroController extends Controller
 
 			# Recupera la lista de libros con el filtro aplicado
 			$libros = Libro::filter($filtro, $limit, $paginator->getOffset());
-
 		} else {
 
 			# Recupera el total de libros
@@ -67,8 +66,6 @@ class LibroController extends Controller
 			'paginator' => $paginator,
 			'filtro' => $filtro
 		]);
-
-
 	}
 
 
@@ -166,7 +163,7 @@ class LibroController extends Controller
 
 			# ---------SI LLEGA LA PORTADA-------------
 
-			if (UploadedFile::check('portada')){
+			if (UploadedFile::check('portada')) {
 				# Crea el nuevo UplodadedFile
 				$file = new UploadedFile(
 					'portada',		# Nombre del input
@@ -175,16 +172,13 @@ class LibroController extends Controller
 				);
 
 				# Guarda el fichero
-				$libro->portada = $file->store('../public/'.BOOK_IMAGE_FOLDER,'book__');
-
+				$libro->portada = $file->store('../public/' . BOOK_IMAGE_FOLDER, 'book__');
 			}
 
 			$libro->update();					# Actualiza el libro para indicar la portada
 
 			Session::success("Guardado del libro $libro->titulo correcto.");
 			redirect("/Libro/show/$libro->id");
- 
-
 
 
 			# Flashea un mensaje que VERIFICA LA CORRECTA subida del libro por sesión (para que no se borre al redireccionar)
@@ -207,16 +201,14 @@ class LibroController extends Controller
 			# Si no, volveremos al formulario de creación del libro.
 
 			redirect("/Libro/create");
-		}catch(UploadException $e) {
+		} catch (UploadException $e) {
 
 			Session::warning("El libro se guardo correctamente, pero no se subió la imagen de portada.");
 
 			if (DEBUG)
-			throw new Exception($e->getMessage());
+				throw new Exception($e->getMessage());
 
 			redirect("/Libro/edit/$libro->id");
-
-			
 		}
 	}
 
@@ -274,6 +266,23 @@ class LibroController extends Controller
 		# Intenta actualizar el libro
 
 		try {
+				# --------> ACTUALIZA LA PORTADA DEL LIBRO  <--------
+				if(UploadedFile::check('portada')){
+
+					$file = new UploadedFile(
+						'portada',		# Nombre del input
+						800000,         # Asigna un tamaño máximo al archivo
+						['image/png', 'image/jpeg', 'image/gif', 'image/jpg']
+					);
+
+					if ($libro->portada)
+					
+					File::remove('../public/'. BOOK_IMAGE_FOLDER .'/'.$libro->portada);	# Elimina el fichero anterior, si existe.
+					$libro->portada = $file->store('../public'. BOOK_IMAGE_FOLDER, 'book__');
+				}
+
+
+
 			$libro->update();
 			Session::success("Actualización del libro $libro->titulo correcta.");
 			redirect("/Libro/edit/$id");
@@ -290,7 +299,14 @@ class LibroController extends Controller
 			# Si no , volveremos de nuevo a la operación de edición.
 
 			redirect("/Libro/edit/$id");
+		}catch(UploadException $e) {
+			Session::warning("Cambios guardados, pero no se modificó la portada.");
+
+			if (DEBUG)
+			throw new Exception($e->getMessage());
+		redirect("/Libro/edit/$id");
 		}
+
 	}
 
 
@@ -440,9 +456,6 @@ class LibroController extends Controller
 			else
 				redirect("/Libro/edit/$idlibro");
 		}
-
-
 	}
 
 }
-
