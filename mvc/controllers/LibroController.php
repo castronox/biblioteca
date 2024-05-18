@@ -348,8 +348,8 @@ class LibroController extends Controller
 		try {
 			$libro->deleteObject($libro->id);
 
-			if($libro->portada)
-			        File::remove('../public' . BOOK_IMAGE_FOLDER . '/' . $libro->portada, true);
+			if ($libro->portada)
+				File::remove('../public' . BOOK_IMAGE_FOLDER . '/' . $libro->portada, true);
 
 			Session::success("Se ha borrado el $libro->titulo correctamente.");
 			redirect("/Libro/list");
@@ -364,12 +364,12 @@ class LibroController extends Controller
 
 			# Si no retornamos al formulario de confirmación de borrado.					
 			redirect("/Libro/delete/$id");
-		}catch (FileException $e) {
+		} catch (FileException $e) {
 			Session::warning("Se eliminó el libro pero no la imagen");
-			
+
 			if (DEBUG)
-			throw new Exception($e->getMessage());
-		redirect("/Libro/list");
+				throw new Exception($e->getMessage());
+			redirect("/Libro/list");
 		}
 	}
 
@@ -505,7 +505,7 @@ class LibroController extends Controller
 			Session::error("No se puedo eliminar la portada");
 
 			if (DEBUG)
-			throw new Exception($e->getMessage());
+				throw new Exception($e->getMessage());
 
 		} catch (FileException $e) {
 			Session::warning("No se pudo eliminar el fichero del disco");
