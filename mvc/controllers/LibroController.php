@@ -5,13 +5,31 @@
 class LibroController extends Controller
 {
 
-	# ---------------------------v- Operación por defecto -v----------------------------------------
+
+	#---------------------------------------------------------------------#
+	#------------->  MÉTODO DE REDIRECCIÓN A LISTAR DATOS  <--------------#
+	#---------------------------------------------------------------------#
+	#                                                                      
+	#                                                                      
+	#                                                                      
+	#                                                                      
+	#                                                                      
+	#                                                                      
 	public function index()
 	{
 		$this->list(); # Redirige al método list()
 	}
 
-	# ---------------------------v- Operación para listar los libros -v-----------------------------
+
+	#---------------------------------------------------------------------#
+	#-------------------->  MÉTODO PARA LISTAR LIBROS  <------------------#
+	#---------------------------------------------------------------------#
+	#                                                                      
+	#                                                                      
+	#                                                                      
+	#                                                                      
+	#                                                                      
+	#                                                                      
 	public function list(int $page = 1)
 	{
 
@@ -53,7 +71,16 @@ class LibroController extends Controller
 
 	}
 
-	# --------------------------v- Método que muestra los detalles de un libro -v------------------
+
+	#---------------------------------------------------------------------#
+	#----------------->  MOSTRAR DETALLED DE UN LIBRO  <------------------#
+	#---------------------------------------------------------------------#
+	#                                                                      
+	#                                                                      
+	#                                                                      
+	#                                                                      
+	#                                                                      
+	#                                                                      
 	public function show(int $id = 0)
 	{
 
@@ -79,7 +106,21 @@ class LibroController extends Controller
 		]);
 	}
 
-	# -------------------------v- Método que redirecciona la vista el formulario del nuevo libro -v--------------
+
+
+
+	#---------------------------------------------------------------------#
+	#--------------->   CREAR / GUARDAR UN LIBRO (Método)   <-------------#
+	#---------------------------------------------------------------------#
+	#                                                                      
+	#                                                                      
+	#                                                                      
+	#                                                                      
+	#                                                                      
+	#     
+
+
+	# Redirección a la vista del formulario para crear el libro
 	public function create()
 	{
 		view('libro/create', [
@@ -88,7 +129,7 @@ class LibroController extends Controller
 		]);
 	}
 
-	# ------------------------v- CREAR / GUARDAR UN LIBRO (Método) -v--------------------------------------
+
 	public function store()
 	{
 
@@ -100,13 +141,13 @@ class LibroController extends Controller
 		$libro = new Libro(); # Creamos un objeto LIBRO en el que
 		# introduciremos los datos del formulario
 
-		$libro->isbn 					= $this->request->post		('isbn');
-		$libro->titulo 					= $this->request->post		('titulo');
-		$libro->editorial 				= $this->request->post		('editorial');
-		$libro->autor 					= $this->request->post		('autor');
-		$libro->idioma 					= $this->request->post		('idioma');
-		$libro->edicion 				= $this->request->post		('edicion');
-		$libro->edadrecomendada 		= $this->request->post		('edadrecomendada');
+		$libro->isbn = $this->request->post('isbn');
+		$libro->titulo = $this->request->post('titulo');
+		$libro->editorial = $this->request->post('editorial');
+		$libro->autor = $this->request->post('autor');
+		$libro->idioma = $this->request->post('idioma');
+		$libro->edicion = $this->request->post('edicion');
+		$libro->edadrecomendada = $this->request->post('edadrecomendada');
 
 		# Añadimos para recoger el tema del libro
 		$idtema = intval($this->request->post('idtema'));
@@ -146,7 +187,16 @@ class LibroController extends Controller
 		}
 	}
 
-	# -----------------------------v- ACTUALIZAR UN LIBRO -v---------------------------------------------------------------------
+
+	#---------------------------------------------------------------------#
+	#-----------------------> ACTUALIZAR UN LIBRO <-----------------------#
+	#---------------------------------------------------------------------#
+	#                                                                      
+	#                                                                      
+	#                                                                      
+	#                                                                      
+	#                                                                      
+	#                                                                      
 
 	# Esta función muestra la vista del formulario de edición
 	public function edit(int $id = 0)
@@ -210,7 +260,16 @@ class LibroController extends Controller
 		}
 	}
 
-	#------------------------V-- BORRAR UN LIBRO --V--------------------------------------
+
+	#---------------------------------------------------------------------#
+	#----------------------->BORRAR UN LIBRO<-----------------------------#
+	#---------------------------------------------------------------------#
+	#                                                                      
+	#                                                                      
+	#                                                                      
+	#                                                                      
+	#                                                                      
+	#                                                                      
 	public function delete(int $id = 0)
 	{
 		$libro = Libro::findOrFail($id, "No existe el libro");
@@ -254,9 +313,15 @@ class LibroController extends Controller
 		}
 	}
 
-	#------------------------- AÑADIR TEMAS A UN LIBRO ------------------------------------------------
-
-
+	#---------------------------------------------------------------------#
+	#--------------------->  AÑADIR TEMA A UN LIBRO  <--------------------#
+	#---------------------------------------------------------------------#
+	#                                                                      
+	#                                                                      
+	#                                                                      
+	#                                                                      
+	#                                                                      
+	#                                                                      
 
 	public function addtema()
 	{
@@ -298,7 +363,16 @@ class LibroController extends Controller
 	}
 
 
-	#---------------------- ELIMINAR UN TEMA --------------------------------------------
+
+	#---------------------------------------------------------------------#
+	#------------------------->  ELIMINAR UN TEMA  <----------------------#
+	#---------------------------------------------------------------------#
+	#                                                                      
+	#                                                                      
+	#                                                                      
+	#                                                                      
+	#                                                                      
+	#                                                                      
 
 
 	public function removetema()

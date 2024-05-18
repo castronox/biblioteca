@@ -4,8 +4,6 @@
 
 class TemaController extends Controller
 {
-
-
 	#---------------------------------------------------------------------#
 	#----------------------->Operación por defecto<-----------------------#
 	#---------------------------------------------------------------------#
@@ -16,18 +14,10 @@ class TemaController extends Controller
 	#                                                                      
 	#  
 
-
 	public function index()
 	{
 		$this->list(); 		# Redirige al método list
 	}
-
-
-
-
-
-
-
 
 	#-------------------------------------------------------------------------#
 	#-------------->  Operación para listar/ mostrar   TEMAS  <---------------#
@@ -79,11 +69,6 @@ class TemaController extends Controller
 
 	}
 
-
-
-
-
-
 	#---------------------------------------------------------------------#
 	#---------------->   MÉTODO PARA CREAR NUEVO TEMA   <-----------------#
 	#---------------------------------------------------------------------#
@@ -93,8 +78,6 @@ class TemaController extends Controller
 	#                                                                      
 	#                                                                      
 	# 
-
-
 	public function create()
 	{
 		view('tema/create');	# Apuntamos a la vista del método			
@@ -139,9 +122,6 @@ class TemaController extends Controller
 	}
 
 
-
-
-
 	#---------------------------------------------------------------------#
 	#-------------->      MOSTRAR DETELLES DE UN TEMA      <--------------#
 	#---------------------------------------------------------------------#
@@ -182,7 +162,6 @@ class TemaController extends Controller
 	{
 
 		$temas = Tema::findOrFail($id, 'No se encontró el TEMA');
-
 
 
 		view('tema/edit', [
@@ -282,12 +261,6 @@ class TemaController extends Controller
 			else {
 				redirect("/Tema/list/");
 			}
-
-
-
-
 		}
-
 	}
-
 }
