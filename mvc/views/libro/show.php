@@ -25,6 +25,9 @@
 
 <main>
 		<h1><?= APP_NAME ?></h1>
+
+		<div class="flex-container">
+			<section class="flex1">
 		<h2><?=$libro->titulo?></h2>
 
 
@@ -44,15 +47,25 @@
 		<p>
 			<b>Edad recomendada:</b>
 <?= $libro->edadrecomendada ?? 'Pendiente de calificación';?></p>
+</section>
 
+<figure class="flex1 centrado">
 
+	<img src="<?= BOOK_IMAGE_FOLDER.'/'.($libro->portada ?? DEFAULT_BOOK_IMAGE)?>" class="cover" alt="Portada de <?=$libro->titulo?>">
+	<figcaption>Portada de <?="$libro->titulo, de $libro->autor"?></figcaption>
+
+</figure>
+
+</div>
+<br><br><hr><br>
 		<div class="centrado">
 			<a class="button" onclick="history.back()">Atrás</a> <a
 				class="button" href="/libro/list">Lista de libros</a> <a
 				class="button" href="/libro/edit/<?= $libro->id?>">Edición</a> <a
 				class="button" href="/libro/delete/<?= $libro->id?>">Borrado</a>
 		</div>
-		
+		<br>
+		<hr>
 		<section>
 		<h2>Temas tratados por <?= $libro->titulo?></h2>
 		

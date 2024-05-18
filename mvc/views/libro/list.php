@@ -67,7 +67,8 @@
 			<table>
 
 				<tr>
-					<th>Título</th>
+					<th>Portada</th>
+					<th>Nombre</th>
 					<th>Autor</th>
 					<th>Editorial</th>
 					<th>Operaciones</th>
@@ -75,9 +76,13 @@
 
 				<?php foreach ($libros as $libro) { ?>
 
-					<tr>
+					<tr class="centrado">
+						<td class="centrado">
+						<img src="<?= BOOK_IMAGE_FOLDER.'/'.($libro->portada ?? DEFAULT_BOOK_IMAGE)?>" class="cover-mini" alt="Portada de <?=$libro->titulo?>">
 
-						<td><?= $libro->titulo ?></td>
+						</td>
+
+						<td><a href='/Libro/show/<?=$libro->id?>'><?= $libro->titulo?> ></a></td>
 						<td><?= $libro->autor ?></td>
 						<td><?= $libro->editorial ?></td>
 
@@ -100,3 +105,5 @@
 </body>
 
 </html>
+
+

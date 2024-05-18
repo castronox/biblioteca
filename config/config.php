@@ -160,7 +160,7 @@ define('REDIRECT_AFTER_LOGIN', '/'); // Redirección tras login.
  * PAGINADOR
  * -------------------------------------------------------------*/
     
-define('RESULTS_PER_PAGE', 5);  // Número de resultados por página
+define('RESULTS_PER_PAGE', 8);  // Número de resultados por página
     
     
     
@@ -177,4 +177,9 @@ define('ALLOW_CREDENTIALS', 'true');                 // ¿Se permite el envío d
 define('API_AUTHENTICATION', 'COOKIE'); // puede ser COOKIE (implementado) o KEY (no implementado aún)
 
     
-    
+ # Carpeta para las portadas delos libros.
+ define('BOOK_IMAGE_FOLDER', '/images/books');
+ 
+ #Imagen por defecto para las portadas de los libros
+ # Buscad una imagen que os guste y colocadla en la carpeta.
+ define('DEFAULT_BOOK_IMAGE','libroSinPortada.png');
