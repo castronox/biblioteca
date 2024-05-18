@@ -339,13 +339,18 @@ class LibroController extends Controller
 		$id = intval($this->request->post('id'));		# Recupera el identificador
 		$libro = Libro::findOrFail($id);				# Recupera el libro
 
+
 		# Si el libro tiene ejemplares, no permitiremos su borrado
 		if ($libro->hasAnyEjemplar('Ejemplar'))
 			throw new Exception("No se puede borrar el libro mientras tenga ejemplares");
 
 		# Intenta borrar el libro	
 		try {
-			$libro->delete($libro->id);
+			$libro->deleteObject($libro->id);
+
+			if($libro->portada)
+			        File::remove('../public' . BOOK_IMAGE_FOLDER . '/' . $libro->portada, true);
+
 			Session::success("Se ha borrado el $libro->titulo correctamente.");
 			redirect("/Libro/list");
 
@@ -359,6 +364,12 @@ class LibroController extends Controller
 
 			# Si no retornamos al formulario de confirmación de borrado.					
 			redirect("/Libro/delete/$id");
+		}catch (FileException $e) {
+			Session::warning("Se eliminó el libro pero no la imagen");
+			
+			if (DEBUG)
+			throw new Exception($e->getMessage());
+		redirect("/Libro/list");
 		}
 	}
 
