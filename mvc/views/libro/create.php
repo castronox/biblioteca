@@ -44,18 +44,18 @@
 					<br>
 					<label>Autor</label>
 					<input type="text" name="autor" value="<?= old('autor') ?>">
-					<br>
-
+					<br><br>
+<hr><br>
 					<label>Portada</label>
 					<input type="file" name="portada" accept="image/*" id="file-with-preview">
-
+	<br>
 					<label>Idioma:</label>
 					<select name="idioma">
 						<option value="Castellano" <?= oldSelected('idioma', 'Castellano') ?>>Castellano</option>
 						<option value="Catalán" <?= oldSelected('idioma', 'Catalán') ?>>Catalán</option>
 						<option value="Otros" <?= oldSelected('idioma', 'Otros') ?>>Otros</option>
-					</select><br>
-
+				</select><br><br>
+<hr><br>
 
 					<label>Edición</label>
 					<input type="number" name="edicion" value="<?= old('edicion') ?>">

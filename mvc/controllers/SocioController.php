@@ -4,14 +4,31 @@ class SocioController extends Controller
 {
 
 
-	# ---------------------------v- Operación por defecto -v----------------------------------------
+	#---------------------------------------------------------------------#
+	#--------------> MÉTODO DE REDIRECCIÓN A LISTAR DATOS <---------------#
+	#---------------------------------------------------------------------#
+	#                                                                      
+	#                                                                      
+	#                                                                      
+	#                                                                      
+	#                                                                      
+	#                                                                      
 	public function index()
 	{
 		$this->list(); # Redirige al método list()
 	}
 
 
-	# ---------------------------v- Operación para listar los Socios -v-----------------------------
+
+	#---------------------------------------------------------------------#
+	#--------------------->      LISTAR SOCIOS    <-----------------------#
+	#---------------------------------------------------------------------#
+	#                                                                      
+	#                                                                      
+	#                                                                      
+	#                                                                      
+	#                                                                      
+	#                                                                      
 	public function list(int $page = 1)
 	{
 
@@ -50,7 +67,46 @@ class SocioController extends Controller
 		]);
 	}
 
-	#---------------------------V--CREAR UN SOCIO--V------------------------------------------------
+
+
+	#---------------------------------------------------------------------#
+	#--------------->     MOSTRAR DETALLES DE UN SOCIO   <----------------#
+	#---------------------------------------------------------------------#
+	#                                                                      
+	#                                                                      
+	#                                                                      
+	#                                                                      
+	#                                                                      
+	#                                                                      
+	public function show(int $id = 0)
+	{
+
+		# Comprueba que llega el ID
+		if (!$id)
+			throw new NothigToFindException('No se indicó el socio a buscar.');
+
+		$socio = Socio::findOrFail($id, "No se encontró el socio seleccionado");
+		$prestamos = $socio->hasMany('Prestamo');
+
+		# Carga la vista y le pasa el socio recuperado
+		view('socio/show', [
+			'socio' => $socio,
+			'prestamos' => $prestamos
+		]);
+
+
+	}
+
+
+	#---------------------------------------------------------------------#
+	#-------------------->      CREAR UN SOCIO     <----------------------#
+	#---------------------------------------------------------------------#
+	#                                                                      
+	#                                                                      
+	#                                                                      
+	#                                                                      
+	#                                                                      
+	#                                                                      
 
 	# Creamos el método de redirección al formulario.
 
@@ -86,12 +142,30 @@ class SocioController extends Controller
 		#Probamos a introducir al nuevo socio a la base de datos
 		try {
 
-			$socio->save();
+			$socio->save();		# Guarda el socio
 
+			#------ Si llega la portada------------------
+
+			if(UploadedFile::check('perfil')){
+				# Genera el guardado de la imagen
+				$file = new UploadedFile(
+						'perfil', 	#Nombre de la imagen de perfil de usuario.
+						800000,			# Tamaño máximo de la imagen de perfil.
+						['image/png', 'image/jpeg', 'image/gif', 'image/jpg']
+
+				);
+
+					# Guarda el fichero
+					$socio->perfil = $file->store('../public/' . MEMBER_IMAGE_FOLDER, 'member__');
+			}
+
+			$socio->update();
+
+			#---------------------------------------------
 			Session::success("Guardado del socio $this->nombre $this->apellidos correcto.");
 
 			# Si se cumple la condición redirecciona a los detalles del nuevo socio.
-			redirect("/socio/show/$socio->id");
+			redirect("/Socio/show/$socio->id");
 
 		} catch (SQLException $e) {	# Si la condición no se cumple mandamos error
 
@@ -107,28 +181,15 @@ class SocioController extends Controller
 			redirect('/Socio/create');
 
 
+		} catch (UploadException $e){
+
+			Session::warning("El socio se guardo correctamente, pero no se subió la imagen de perfil.");
+
+			if (DEBUG)
+			throw new Exception($e->getMessage());
+			redirect("/Socio/edit/$socio->id");
 		}
 	}
-	# --------------------------v- Método que muestra los detalles de un socio -v------------------
-	public function show(int $id = 0)
-	{
-
-		# Comprueba que llega el ID
-		if (!$id)
-			throw new NothigToFindException('No se indicó el socio a buscar.');
-
-		$socio = Socio::findOrFail($id, "No se encontró el socio seleccionado");
-		$prestamos = $socio->hasMany('Prestamo');
-
-		# Carga la vista y le pasa el socio recuperado
-		view('socio/show', [
-			'socio' => $socio,
-			'prestamos' => $prestamos
-		]);
-
-
-	}
-
 
 	#--------------------v--------ACTUALIZAR SOCIO -----------------------------------------
 

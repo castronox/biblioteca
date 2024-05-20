@@ -68,12 +68,18 @@
 	<table>
 	
 	<tr>
-			<th>DNI</th><th>Nombre</th><th>Apellidos</th><th>Población</th><th>Operaciones</th>
+			<th>Foto</th><th>DNI</th><th>Nombre</th><th>Apellidos</th><th>Población</th><th>Operaciones</th>
 	</tr>
 	
 	<?php  foreach ($socios as $socio){?>
 	
-	<tr>
+	<tr class="centrado">
+		<!--En este PRIMER Table Data añadimos la imágen de perfil. -->
+
+		<td class="centrado">
+			<img src="<?= MEMBER_IMAGE_FOLDER. '/'. ($socio->perfil ?? DEFAULT_MEMBER_IMAGE)?>" class="cover-mini" alt="Portada de <?=$socio->nombre?>">
+		</td>
+
 		<td><?= $socio->dni?></td>
 		<td><?= $socio->nombre?></td>
 		<td><?= $socio->apellidos?></td>

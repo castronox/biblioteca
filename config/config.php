@@ -9,14 +9,14 @@
  * @since 0.1.0
  * @since 1.0.0 se pueden configurar las vistas de error personalizadas
  */
-   
+
 
 /* -------------------------------------------------------------
  * AUTOLOAD
  * -------------------------------------------------------------*/
 
 // direcotrios para el autoload (no PSR-4) 
-define('AUTOLOAD_DIRECTORIES',  [
+define('AUTOLOAD_DIRECTORIES', [
     '../app/core',          // core 
     '../app/http',          // peticiones y respuestas 
     '../app/libraries',     // librerías
@@ -26,19 +26,19 @@ define('AUTOLOAD_DIRECTORIES',  [
     '../templates',         // plantillas para las vistas
     '../app/exceptions'     // excepciones
 ]);
- 
-    
-    
+
+
+
 /* -------------------------------------------------------------
  * APLICACIÓN
  * -------------------------------------------------------------*/
-define('APP_NAME','Biblioteca'); // Título de la aplicación.
+define('APP_NAME', 'Biblioteca'); // Título de la aplicación.
 define('APP_TYPE', 'WEB');                // Tipo de aplicación: WEB o API.
 
 // Controlador y método por defecto (solamente para APP_TYPE WEB).
 define('DEFAULT_CONTROLLER', 'WelcomeController');
 define('DEFAULT_METHOD', 'index');
-   
+
 // Email del administrador, para la operación de "contacto"
 define('ADMIN_EMAIL', 'castronox@gmail.com');
 
@@ -51,29 +51,29 @@ define('EMPTY_STRINGS_TO_NULL', true);
 /* -------------------------------------------------------------
  * VISTAS
  * -------------------------------------------------------------*/
-    
+
 define('VIEWS_FOLDER', '../mvc/views');     // Carpeta para las vistas.
- 
+
 // Template a usar en las vistas (en la carpeta templates).
 // Las opciones disponibles por defecto son Template, Dark, Neon o Retro.
-define('TEMPLATE', 'Template'); 
+define('TEMPLATE', 'Template');
 
 
 
 /* -------------------------------------------------------------
  * TESTS
  * -------------------------------------------------------------*/
-    
+
 define('TEST_FOLDER', '../test');  // Carpeta para los test.
 define('BEAUTIFUL_TEST', true);    // ¿Usar template en los tests?
 define('TEST_TEMPLATE', 'Test');   // Ubicación del template para los tests.
 
-    
-    
+
+
 /* -------------------------------------------------------------
  * HERRAMIENTAS DE DEPURACIÓN (PARA APP_TYPE WEB)
  * -------------------------------------------------------------*/
-    
+
 define('DEBUG', true); // Activa el modo debug.   
 
 // Detalles que queremos mostrar en modo debug en la página de error
@@ -110,20 +110,20 @@ define('USE_CUSTOM_ERROR_VIEWS', true);
 /* -------------------------------------------------------------
  * BASE DE DATOS
  * -------------------------------------------------------------*/
-    
+
 // Parámetros de configuración de la base de datos:
-define('DB_HOST','localhost');  // Host.
-define('DB_USER','root');       // Usuario.
-define('DB_PASS','');           // Password.
-define('DB_NAME','biblioteca');  // Nombre de la base de datos.
-define('DB_PORT',  3306);       // Puerto.
-define('DB_CHARSET','utf8');    // Codificación de caracteres.
+define('DB_HOST', 'localhost');  // Host.
+define('DB_USER', 'root');       // Usuario.
+define('DB_PASS', '');           // Password.
+define('DB_NAME', 'biblioteca');  // Nombre de la base de datos.
+define('DB_PORT', 3306);       // Puerto.
+define('DB_CHARSET', 'utf8');    // Codificación de caracteres.
 
 
-define('DB_CLASS','DB');        // Clase a usar, puede ser DB (mysqli) o DBPDO (PDO).
-define('SGDB','mysql');         // Driver que debe usar PDO (solamente para PDO).
+define('DB_CLASS', 'DB');        // Clase a usar, puede ser DB (mysqli) o DBPDO (PDO).
+define('SGDB', 'mysql');         // Driver que debe usar PDO (solamente para PDO).
 
-    
+
 /* -------------------------------------------------------------
  * USUARIOS Y ROLES
  * -------------------------------------------------------------*/
@@ -136,34 +136,34 @@ define('USER_PROVIDER', 'User');   // La única opción incluida es User.
 
 // Roles para los usuarios. Podemos crear o eliminar roles según las necesidades.
 define('USER_ROLES', [
-    'Usuario'       => 'ROLE_USER',
+    'Usuario' => 'ROLE_USER',
     'Administrador' => 'ROLE_ADMIN',
-    'Supervisor'    => 'ROLE_SUPERVISOR',
-    'Editor'        => 'ROLE_EDITOR',
-    'Test'          => 'ROLE_TEST',
-    'API'           => 'ROLE_API'
+    'Supervisor' => 'ROLE_SUPERVISOR',
+    'Editor' => 'ROLE_EDITOR',
+    'Test' => 'ROLE_TEST',
+    'API' => 'ROLE_API'
 ]);
 
 // Rol para el administrador (debe ser uno de los que están en la lista anterior).
 define('ADMIN_ROLE', 'ROLE_ADMIN');
 
-    
+
 
 /* -------------------------------------------------------------
  * REDIRECCIONES
  * -------------------------------------------------------------*/
-    
+
 define('REDIRECT_AFTER_LOGIN', '/'); // Redirección tras login.
-    
-    
+
+
 /* -------------------------------------------------------------
  * PAGINADOR
  * -------------------------------------------------------------*/
-    
+
 define('RESULTS_PER_PAGE', 8);  // Número de resultados por página
-    
-    
-    
+
+
+
 /* -------------------------------------------------------------
  * API
  * -------------------------------------------------------------*/
@@ -176,10 +176,17 @@ define('ALLOW_CREDENTIALS', 'true');                 // ¿Se permite el envío d
 
 define('API_AUTHENTICATION', 'COOKIE'); // puede ser COOKIE (implementado) o KEY (no implementado aún)
 
-    
- # Carpeta para las portadas delos libros.
- define('BOOK_IMAGE_FOLDER', '/images/books');
- 
- #Imagen por defecto para las portadas de los libros
- # Buscad una imagen que os guste y colocadla en la carpeta.
- define('DEFAULT_BOOK_IMAGE','libroSinPortada.png');
+
+# Carpeta para las portadas delos libros.
+define('BOOK_IMAGE_FOLDER', '/images/books');
+
+#Imagen por defecto para las portadas de los libros
+# Buscad una imagen que os guste y colocadla en la carpeta.
+define('DEFAULT_BOOK_IMAGE', 'libroSinPortada.png');
+
+
+# Direcotrio donde se encuentran las fotos de los miembros
+define('MEMBER_IMAGE_FOLDER', '/images/members');
+
+# Imagen por defecto de las fotos de los miembros
+define('DEFAULT_MEMBER_IMAGE','member.png');
