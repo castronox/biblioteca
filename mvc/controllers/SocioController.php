@@ -141,16 +141,13 @@ class SocioController extends Controller
 
 		#Probamos a introducir al nuevo socio a la base de datos
 		try {
-
-			$socio->save();		# Guarda el socio
-
 			#------ Si llega la portada------------------
 
 			if(UploadedFile::check('perfil')){
 				# Genera el guardado de la imagen
 				$file = new UploadedFile(
 						'perfil', 	#Nombre de la imagen de perfil de usuario.
-						800000,			# Tamaño máximo de la imagen de perfil.
+						8000000,			# Tamaño máximo de la imagen de perfil.
 						['image/png', 'image/jpeg', 'image/gif', 'image/jpg']
 
 				);
@@ -235,9 +232,26 @@ class SocioController extends Controller
 		# Intenta actualizar el SOCIO
 
 		try {
+			
+			# Actualiza la fotografía de perfil del socio 
+			if (UploadedFile::check('foto')){
+				$file = new UploadedFile(
+					'foto',
+					8000000,
+				['image/png', 'image/jpeg', 'image/gif', 'image/jpg']
+			);
+
+			if ($socio->perfil)
+			        File::remove('../public/' . MEMBER_IMAGE_FOLDER . '/' . $socio->foto); # Elimina el fichero anterio si existe
+					$socio->foto = $file->store('../public' . MEMBER_IMAGE_FOLDER, 'member__');
+			}
+
+			
+
 			$socio->update();
-			Session::success("Acutalización del socio $socio->nombre $socio->apellidos correcto");
-			redirect("/Socio/edit/$id");
+			Session::success("Actualización del socio $socio->nombre $socio->apellidos Correcto");
+			redirect("/Socio/edit/$id");	
+			
 
 			#Si se produce un error en la base de datos
 		} catch (SQLException $e) {
@@ -252,6 +266,14 @@ class SocioController extends Controller
 
 			redirect("/Socio/edit/$id");
 
+		} catch (UploadException $e) {	
+			
+			Session::warning("Cambios guardados pero no se modificó la portada");
+
+			if (DEBUG)
+			throw new Exception($e->getMessage());
+		redirect("/Socio/edit/$id ");
+		
 		}
 	}
 

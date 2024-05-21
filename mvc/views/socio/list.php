@@ -77,7 +77,7 @@
 		<!--En este PRIMER Table Data añadimos la imágen de perfil. -->
 
 		<td class="centrado">
-			<img src="<?= MEMBER_IMAGE_FOLDER. '/'. ($socio->perfil ?? DEFAULT_MEMBER_IMAGE)?>" class="cover-mini" alt="Portada de <?=$socio->nombre?>">
+			<img src="<?= MEMBER_IMAGE_FOLDER. '/'. ($socio->foto ?? DEFAULT_MEMBER_IMAGE)?>" class="cover-mini" alt="Portada de <?=$socio->nombre?>">
 		</td>
 
 		<td><?= $socio->dni?></td>

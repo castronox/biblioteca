@@ -33,8 +33,9 @@
 		<h2>Edición del Socio <?= $socio->nombre?></h2>
 	
 	
-	
-			<form method="POST" class ="centrado" action="/Socio/update">
+	<div class="flex-container">
+		<section class="flex1  centrado" >
+			<form method="POST" class ="centrado" enctype="multipart/form-data" action="/Socio/update">
 
 			<!-- Input oculto que contiene el ID del libro a actualizar -->
 
@@ -55,6 +56,10 @@
 			<input type="text" name="apellidos" value="<?= old('apellidos',$socio->apellidos)?>">
 			<br>
 			
+			<label>Perfil</label>
+            <input type="file" name="foto" accept="image/*" id="file-with-preview" value="<?=old('perfil',$socio->perfil)?>">
+			<br>
+
 			<label>Nacimiento</label>
 			<input type="text" name="nacimiento" value="<?= old('nacimiento',$socio->nacimiento)?>">
 			<br>
@@ -87,7 +92,22 @@
 			<input class="button" type="submit" name="actualizar" value="Actualizar">
  			
 		</form>
-	
+		</section>
+	<section class="flex1 centrado" >
+	<script src="/js/Preview.js" ></script>
+				
+				<br>
+
+				<figure class="flex1 centrado">
+						
+						<img src="<?= MEMBER_IMAGE_FOLDER. '/' .($socio->foto ?? DEFAULT_MEMBER_IMAGE)?>" id="preview-image" class="cover" alt="Previsualización del perfil de <?=$socio->nombre?>">
+						<figcaption>Previsualización de la portada de <?=$socio->nombre?></figcaption>
+				</figure>
+
+	</section>
+
+
+		</div>
 	
 	
 			<br><br><br><br>				
