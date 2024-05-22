@@ -90,7 +90,7 @@
 			
 			
 			<input class="button" type="submit" name="actualizar" value="Actualizar">
- 			
+			
 		</form>
 		</section>
 	<section class="flex1 centrado" >
@@ -102,6 +102,11 @@
 						
 						<img src="<?= MEMBER_IMAGE_FOLDER. '/' .($socio->foto ?? DEFAULT_MEMBER_IMAGE)?>" id="preview-image" class="cover" alt="Previsualización del perfil de <?=$socio->nombre?>">
 						<figcaption>Previsualización de la portada de <?=$socio->nombre?></figcaption>
+
+						<form method="POST" action="/socio/dropPhoto">
+							<input type="hidden" name="id" value="<?=$socio->id?>">
+							<input type="submit" class="button" name="borrar" value="Eliminar portada">
+						</form>
 				</figure>
 
 	</section>

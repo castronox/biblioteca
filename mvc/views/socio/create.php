@@ -30,7 +30,7 @@
 		<h2>Nuevo Socio</h2>
 		<div class="flex-container">
 		<section class="flex1 centrado">
-		<form method="POST" enctype="multipart/form-data" action="/socio/store">
+		<form method="POST" enctype="multipart/form-data" action="/Socio/store">
 		
 		<label>DNI:</label>
 		<input type="text" name="dni" value="<?= old('dni')?>">
@@ -42,8 +42,8 @@
 		<input type="text" name="apellidos" value="<?= old('apellidos')?>">
 		<br>
 		
-		<label>Portada</label>
-		<input type="file" name="perfil" accept="image/*" id="file-with-preview">
+		<label>Foto</label>
+		<input type="file" name="foto" accept="image/*" id="file-with-preview">
 <br><br><br>
 
 

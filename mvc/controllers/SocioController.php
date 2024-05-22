@@ -139,34 +139,38 @@ class SocioController extends Controller
 		$socio->provincia = $this->request->post('provincia');
 		$socio->telefono = $this->request->post('telefono');
 
+		
+		
+
 		#Probamos a introducir al nuevo socio a la base de datos
 		try {
+			$socio->save();
 			#------ Si llega la portada------------------
 
-			if(UploadedFile::check('perfil')){
+			if (UploadedFile::check('foto')) {
 				# Genera el guardado de la imagen
 				$file = new UploadedFile(
-						'perfil', 	#Nombre de la imagen de perfil de usuario.
-						8000000,			# Tamaño máximo de la imagen de perfil.
-						['image/png', 'image/jpeg', 'image/gif', 'image/jpg']
+					'foto', 	#Nombre de la imagen de perfil de usuario.
+					8000000,			# Tamaño máximo de la imagen de perfil.
+					['image/png', 'image/jpeg', 'image/gif', 'image/jpg']
 
 				);
 
-					# Guarda el fichero
-					$socio->perfil = $file->store('../public/' . MEMBER_IMAGE_FOLDER, 'member__');
+				# Guarda el fichero
+				$socio->foto = $file->store('../public/' . MEMBER_IMAGE_FOLDER, 'member__');
 			}
 
 			$socio->update();
-
+			
 			#---------------------------------------------
-			Session::success("Guardado del socio $this->nombre $this->apellidos correcto.");
+			Session::success("Guardado del socio $socio->nombre $socio->apellidos correcto.");
 
 			# Si se cumple la condición redirecciona a los detalles del nuevo socio.
 			redirect("/Socio/show/$socio->id");
 
 		} catch (SQLException $e) {	# Si la condición no se cumple mandamos error
 
-			Session::error(" No se han enviado los datos del socio $this->nombre $this->apellidos .");
+			Session::error(" No se han enviado los datos del socio $socio->nombre $socio->apellidos .");
 
 			# Estando en modo debug. Nos envia a la vista del error
 
@@ -175,20 +179,28 @@ class SocioController extends Controller
 
 			# Si no estamos en modo DEBUG nos redirecciona nuevamente a la creación del socio.
 
-			redirect('/Socio/create');
+			redirect('/socio/create');
 
 
-		} catch (UploadException $e){
+		} catch (UploadException $e) {
 
 			Session::warning("El socio se guardo correctamente, pero no se subió la imagen de perfil.");
 
 			if (DEBUG)
-			throw new Exception($e->getMessage());
+				throw new Exception($e->getMessage());
 			redirect("/Socio/edit/$socio->id");
 		}
 	}
 
-	#--------------------v--------ACTUALIZAR SOCIO -----------------------------------------
+	#---------------------------------------------------------------------#
+	#----------------->     ACTUALIZAR UN SOCIO         <-----------------#
+	#---------------------------------------------------------------------#
+	#                                                                      
+	#                                                                      
+	#                                                                      
+	#                                                                      
+	#                                                                      
+	#                                                                      
 
 	# Esta función muestra la vista del formulario de edición 
 
@@ -232,26 +244,26 @@ class SocioController extends Controller
 		# Intenta actualizar el SOCIO
 
 		try {
-			
+
 			# Actualiza la fotografía de perfil del socio 
-			if (UploadedFile::check('foto')){
+			if (UploadedFile::check('foto')) {
 				$file = new UploadedFile(
 					'foto',
 					8000000,
-				['image/png', 'image/jpeg', 'image/gif', 'image/jpg']
-			);
+					['image/png', 'image/jpeg', 'image/gif', 'image/jpg']
+				);
 
-			if ($socio->perfil)
-			        File::remove('../public/' . MEMBER_IMAGE_FOLDER . '/' . $socio->foto); # Elimina el fichero anterio si existe
-					$socio->foto = $file->store('../public' . MEMBER_IMAGE_FOLDER, 'member__');
+				if ($socio->perfil)
+					File::remove('../public/' . MEMBER_IMAGE_FOLDER . '/' . $socio->foto); # Elimina el fichero anterio si existe
+				$socio->foto = $file->store('../public' . MEMBER_IMAGE_FOLDER, 'member__');
 			}
 
-			
+
 
 			$socio->update();
 			Session::success("Actualización del socio $socio->nombre $socio->apellidos Correcto");
-			redirect("/Socio/edit/$id");	
-			
+			redirect("/Socio/edit/$id");
+
 
 			#Si se produce un error en la base de datos
 		} catch (SQLException $e) {
@@ -266,20 +278,31 @@ class SocioController extends Controller
 
 			redirect("/Socio/edit/$id");
 
-		} catch (UploadException $e) {	
-			
+		} catch (UploadException $e) {
+
 			Session::warning("Cambios guardados pero no se modificó la portada");
 
 			if (DEBUG)
-			throw new Exception($e->getMessage());
-		redirect("/Socio/edit/$id ");
-		
+				throw new Exception($e->getMessage());
+			redirect("/Socio/edit/$id ");
+
 		}
 	}
 
 
 
-	#---------------------------------MÉTODO PARA BORRAR UN LIBRO --------------------------------------------
+	#---------------------------------------------------------------------#
+	#----------------->     	BORRAR UN SOCIO		    <-----------------#
+	#---------------------------------------------------------------------#
+	#                                                                      
+	#                                                                      
+	#                                                                      
+	#                                                                      
+	#                                                                      
+	#                                                                      
+
+
+
 	# Busca el socio y muestra la vista
 	public function delete(int $id = 0)
 	{
@@ -305,7 +328,11 @@ class SocioController extends Controller
 
 		# Intenta borrar el libro
 		try {
+
 			$socio->delete($socio->id);
+
+			if ($socio->foto)
+		        File::remove('../public/' . MEMBER_IMAGE_FOLDER . '/' . $socio->foto , true);
 			Session::success("Se ha borrado el socio $socio->nombre $socio->apellidos correctamente.");
 			redirect("/Socio/list");
 
@@ -322,7 +349,48 @@ class SocioController extends Controller
 		}
 	}
 
+#---------------------------------------------------------------------#
+#----------------->     BORRAR FOTO DE PERFIL       <-----------------#
+#---------------------------------------------------------------------#
+#                                                                      
+#                                                                      
+#                                                                      
+#                                                                      
+#                                                                      
+#        
 
+public function dropPhoto(){
+	if (!$this->request->has("borrar"))
+	throw new FormExeption("Faltan datos para completar la operación");
+
+	# Recupera el ID y el socio
+	$id = intval($this->request->post("id"));
+	$socio = Socio::findOrFail($id, "No se ha encontrado el socio");
+
+	$tmp = $socio->foto;
+	$socio->foto = NULL;
+
+	try {
+		$socio->update();
+			File::remove("../public/" . MEMBER_IMAGE_FOLDER. "/" . $tmp, true);
+
+			Session::success("Borrado de la foto de perfil de $socio->nombre realizada");
+			redirect("/Socio/edit/$id");
+
+		} catch (SQLException $e) {
+			Session::error("No se pudo eliminar la foto de perfil del socio");
+
+			if (DEBUG)
+			throw new Exception($e->getMessage);
+		
+		}catch (FileException $e) {
+			Session::warning("No se pudo eliminar el fichero del disco");
+
+			if (DEBUG)
+			throw new Exception($e->getMessage);
+		redirect("/Socio/edit/$socio->id");
+	}
+}
 
 }
 
