@@ -153,7 +153,7 @@ define('ADMIN_ROLE', 'ROLE_ADMIN');
  * REDIRECCIONES
  * -------------------------------------------------------------*/
 
-define('REDIRECT_AFTER_LOGIN', '/'); // Redirección tras login.
+define('REDIRECT_AFTER_LOGIN', '/User/home'); // Redirección tras login.
 
 
 /* -------------------------------------------------------------
@@ -190,3 +190,11 @@ define('MEMBER_IMAGE_FOLDER', '/images/members');
 
 # Imagen por defecto de las fotos de los miembros
 define('DEFAULT_MEMBER_IMAGE','member.png');
+
+# Directorio donde se encuentrar las fotos de los usuarios
+define('USER_IMAGE_FOLDER','/images/users');
+
+# Imagen por defecto de las fotos de los usuarios
+define('DEFAULT_USER_IMAGE','user.png');
+
+

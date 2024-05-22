@@ -210,12 +210,13 @@ class Template implements TemplateInterface
      * ***************************************************************************
      */
     // retorna el formulario para realizar filtros y búsquedas
-    public static function filterForm(string $action = '/', // URL donde se enviará el formulario
-    array $fields = [], // lista de campos para el desplegable campo de búsqueda
-    array $orders = [], // lista de campos para el desplegable orden
-    string $selectedField = '', string $selectedOrder = '')
-
-    {
+    public static function filterForm(
+        string $action = '/', // URL donde se enviará el formulario
+        array $fields = [], // lista de campos para el desplegable campo de búsqueda
+        array $orders = [], // lista de campos para el desplegable orden
+        string $selectedField = '',
+        string $selectedOrder = ''
+    ) {
         $html = "<form method='POST' class='filtro derecha' action='$action'>";
         $html .= "<input type='text' name='texto' placeholder='Buscar...'> ";
         $html .= "<select name='campo'>";
