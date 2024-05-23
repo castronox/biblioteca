@@ -111,9 +111,12 @@ class Template implements TemplateInterface
         // enlace a la gestión de errores (solamente administrador)
         if (Login::isAdmin() && (DB_ERRORS || LOG_ERRORS || LOG_LOGIN_ERRORS))
             $html .= "<li><a href='/Error/list'>Errores</a></li>";
+            $html .= "<li><a href='/User/list'>Lista de usuarios</a></li>";
 
         // enlace a los tests de ejemplo (solamente administrador)
         if (Login::isAdmin() && (DEBUG))
+
+            $html .= "<li><a href='/User/create'>Nuevo usuario</a></li>";
             $html .= "<li><a href='/test'>Lista de test</a></li>";
 
         // entrada adicional de ejemplo:
