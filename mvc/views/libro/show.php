@@ -60,12 +60,18 @@
 <br><br><hr><br>
 		<div class="centrado">
 			<a class="button" onclick="history.back()">Atrás</a> <a
-				class="button" href="/libro/list">Lista de libros</a> <a
+				class="button" href="/libro/list">Lista de libros</a>
+				<?php if (Login::oneRole(['ROLE_LIBRARIAN','ROLE_ADMIN'])){ ?>
+				<a
 				class="button" href="/libro/edit/<?= $libro->id?>">Edición</a> <a
 				class="button" href="/libro/delete/<?= $libro->id?>">Borrado</a>
+
+				<?php } ?>
 		</div>
 		<br>
+		<?php if (Login::oneRole(['ROLE_LIBRARIAN','ROLE_ADMIN'])){ ?>
 		<hr>
+
 		<section>
 		<h2>Temas tratados por <?= $libro->titulo?></h2>
 		
@@ -116,7 +122,7 @@
 
 		</section>
 
-
+<?php } ?>
 	</main>
 
 <?=(TEMPLATE)::getFooter()?>
