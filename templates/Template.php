@@ -107,28 +107,37 @@ class Template implements TemplateInterface
     {
         $html = "<menu>";
         $html .= "<li><a href='/'>Inicio</a></li>";
-
-        // enlace a la gestión de errores (solamente administrador)
-        if (Login::isAdmin() && (DB_ERRORS || LOG_ERRORS || LOG_LOGIN_ERRORS))
-            $html .= "<li><a href='/Error/list'>Errores</a></li>";
-            $html .= "<li><a href='/User/list'>Lista de usuarios</a></li>";
-
-        // enlace a los tests de ejemplo (solamente administrador)
-        if (Login::isAdmin() && (DEBUG))
-
-            $html .= "<li><a href='/User/create'>Nuevo usuario</a></li>";
-            $html .= "<li><a href='/test'>Lista de test</a></li>";
-
-        // entrada adicional de ejemplo:
         $html .= "<li><a href='/Contacto'>Contacto</a></li>";
         $html .= "<li><a href='/Libro/'>Libros</a></li>";
-        $html .= "<li><a href='/Tema/'>Temas</a></li>";
-        $html .= "<li><a href='/Socio/'>Socios</a></li>";
-        $html .= "<li><a href='/Libro/create'>Crear Libro</a></li>";
-        $html .= "<li><a href='/Socio/create'>Crear Socio</a></li>";
-        $html .= "<li><a href='/Tema/create'>Crear Tema</a></li>";
+        
+    
+        // enlace a la gestión de errores (solamente administrador)
+        if (Login::oneRole(['ROLE_LIBRARIAN', 'ROLE_ADMIN'])) {
+            $html .= "<li><a href='/Libro/create'>Crear Libro</a></li>";
+            $html .= "<li><a href='/Socio/create'>Crear Socio</a></li>";
+            $html .= "<li><a href='/Tema/create'>Crear Tema</a></li>";
+            $html .= "<li><a href='/Socio/'>Socios</a></li>";
+            $html .= "<li><a href='/Tema/'>Temas</a></li>";
+        }
+    
+        if (Login::isAdmin() && (DB_ERRORS || DB_LOGIN_ERRORS || LOG_ERRORS || LOG_LOGIN_ERRORS)) {
+            $html .= "<li><a href='/Error/list'>Errores</a></li>";
+        }
+    
+        // enlace a los tests de ejemplo (solamente administrador)
+        if (Login::isAdmin() && (DEBUG)) {
+            $html .= "<li><a href='/User/list'>Lista de usuarios</a></li>";
+            $html .= "<li><a href='/User/create'>Nuevo usuario</a></li>";
+            $html .= "<li><a href='/test'>Lista de test</a></li>";
+        }
+    
+        // entrada adicional de ejemplo:
+        
+    
+        
+        
         $html .= "</menu>";
-
+    
         return $html;
     }
 

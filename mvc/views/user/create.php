@@ -61,8 +61,11 @@
                     <label for="rol">ROL:</label>
                     <select name="roles">
 
-                        <option value="ROLE_LIBRARIAN">Bibliotecario</option>
-                        <option value="ROLE_ADMIN">Administrador</option>
+                       <?php foreach(USER_ROLES as $roleName => $roleValue){ ?>
+                        <option value="<?= $roleValue ?>"><?= $roleName ?></option>
+
+                       <?php }?>
+                       
 
                     </select>
 

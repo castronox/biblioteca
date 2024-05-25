@@ -68,6 +68,7 @@ class UserController extends Controller
         $user->addRole('ROLE_USER', $_POST['roles']);
 
         try {
+            dd($user);
             $user->save();
 
             if (Upload::arrive('picture')) {
@@ -200,8 +201,112 @@ class UserController extends Controller
 
     public function update()
     {
+        Auth::admin();
+    
+        if (!$this->request->has('actualizar')) {
+            throw new FormException('No se recibieron los datos');
+        }
+    
+        $id = intval($this->request->post('id'));  // Recuperamos el id via post
+    
+        $user = User::findOrFail($id, 'No se ha encontrado el usuario.');
+    
+        // Recuperamos los campos
+        $user->displayname = $this->request->post('displayname');
+        $user->email = $this->request->post('email');
+        $user->phone = $this->request->post('phone');
+        
+        if ($this->request->post('password')) {
+            $user->password = password_hash($this->request->post('password'), PASSWORD_BCRYPT);
+        }
 
+        try {
+            if (UploadedFile::check('picture')) {
+                $file = new UploadedFile(
+                    'picture',
+                    8000000,
+                    ['image/png', 'image/jpeg', 'image/gif']
+                );
+    
+                if ($user->picture) 
+                    File::remove('../public/' . USER_IMAGE_FOLDER . '/' . $user->picture); // Elimina el fichero anterior si existe
+                    $user->picture = $file->store('../public/' . USER_IMAGE_FOLDER, 'user__');
+                
+            
+            }
+        
+            $user->update();
+            
+            Session::success("Actualización de $user->displayname correcta.");
+            redirect("/User/edit/$id");
+    
+        } catch (UploadException $e) {
+            Session::warning("Cambios guardados pero no se modificó la portada");
+    
+            if (DEBUG) {
+                throw new Exception($e->getMessage());
+            }
+            redirect("User/edit/$id");
+        }catch (UploadException $e) {
 
+			Session::warning("Cambios guardados pero no se modificó la foto");
+
+			if (DEBUG)
+				throw new Exception($e->getMessage());
+			redirect("/User/edit/$id ");
+
+		}
     }
+    
 
+
+    
+
+
+    #---------------------------------------------------------------------#
+    #----------------->    BORRAR FOTO DE USUARIO    <-----------------#
+    #---------------------------------------------------------------------#
+    #                                                                      
+    #                                                                      
+    #                                                                      
+    #                                                                      
+    #                                                                      
+    #       
+    
+    
+
+
+    public function dropPhoto(){
+        if (!$this->request->has("borrar"))
+        throw new FormExeption("Faltan datos para completar la operación");
+    
+        # Recupera el ID y el socio
+        $id = intval($this->request->post("id"));
+        $user = User::findOrFail($id, "No se ha encontrado el socio");
+    
+        $tmp = $user->picture;
+        $user->picture = NULL;
+    
+        try {
+         
+            $user->update();
+                File::remove("../public/" . USER_IMAGE_FOLDER. "/" . $tmp, true);
+    
+                Session::success("Borrado de la foto de perfil de $user->displayname realizada");
+                redirect("/User/edit/$id");
+    
+            } catch (SQLException $e) {
+                Session::error("No se pudo eliminar la foto de perfil del socio");
+    
+                if (DEBUG)
+                throw new Exception($e->getMessage);
+            
+            }catch (FileException $e) {
+                Session::warning("No se pudo eliminar el fichero del disco");
+    
+                if (DEBUG)
+                throw new Exception($e->getMessage);
+            redirect("/User/edit/$user->id");
+        }
+    }
 }

@@ -87,9 +87,11 @@
 						<td><?= $libro->editorial ?></td>
 
 						<td>
-							<a href='/Libro/show/<?= $libro->id ?>'>Ver</a> -
-							<a href='/Libro/edit/<?= $libro->id ?>'>Actualizar</a> -
+							<a href='/Libro/show/<?= $libro->id ?>'>Ver</a> 
+							<?php if (Login::oneRole(['ROLE_LIBRARIAN','ROLE_ADMIN'])){ ?>
+							- <a href='/Libro/edit/<?= $libro->id ?>'>Actualizar</a> -
 							<a href='/Libro/delete/<?= $libro->id ?>'>Borrar</a>
+							<?php } ?>
 						</td>
 					</tr>
 				<?php } ?>

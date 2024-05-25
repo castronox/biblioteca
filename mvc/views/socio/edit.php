@@ -23,11 +23,20 @@
 <?=(TEMPLATE)::getMenu()?>
 <?=(TEMPLATE)::getFlashes()?>
 
+
+<!--MIGAS-->
+
+<?= (TEMPLATE)::getBreadCrumbs([
+
+'Lista de socios' => '/Socio/list',
+'Editar socio' => NULL,
+]) ?>
+
 <!-- AQUI VA EL MAIN DE LA NUEVA VISTA DEL MÉTODO -->
 	
 	
 	
-	<main class="centrado">
+	<main class="">
 
 		<h1><?= APP_NAME ?></h1>
 		<h2>Edición del Socio <?= $socio->nombre?></h2>
