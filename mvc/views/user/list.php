@@ -3,7 +3,7 @@
 
 <head>
     <meta charset='UTF-8'>
-    <title> AÑADIR TITULO </title>
+    <title> Lista de usuarios</title>
 
     <!-- META -->
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
@@ -21,13 +21,16 @@
 
 <body>
     <?= (TEMPLATE)::getLogin() ?>
-    <?= (TEMPLATE)::getHeader('AÑADE AQUÍ EL HEADER') ?>
+    <?= (TEMPLATE)::getHeader('Lista de usuarios') ?>
     <?= (TEMPLATE)::getMenu() ?>
     <?= (TEMPLATE)::getFlashes() ?>
-    <?= (TEMPLATE)::getBreadCrumbs([
 
-        'User' => '/User/list'
+    <!-- Migas de la vista-->
+    <?= (TEMPLATE)::getBreadCrumbs([
+        'Lista de usuarios' => '/User/list/'
     ]) ?>
+
+    
     <main>
 
 

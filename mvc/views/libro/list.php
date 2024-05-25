@@ -25,8 +25,8 @@
 	<?= (TEMPLATE)::getMenu() ?>
 	<?= (TEMPLATE)::getBreadCrumbs([
 
-		'Libros' => '/Libro/list',
-		'Nuevo' => NULL,
+		'Lista' => '/Libro/list',
+		'Lista de libros' => NULL,
 	]) ?>
 
 	<?= (TEMPLATE)::getFlashes() ?>
