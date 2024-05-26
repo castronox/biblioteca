@@ -1,5 +1,5 @@
 <?php
-Auth::oneRole(["ROLE_ADMIN","ROLE_LIBRARIAN"]);
+Auth::oneRole(["ROLE_ADMIN", "ROLE_LIBRARIAN"]);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -34,7 +34,7 @@ Auth::oneRole(["ROLE_ADMIN","ROLE_LIBRARIAN"]);
         <p><b>Nombre:</b> <?= $tema->tema ?></p>
         <p><b>Descripción:</b> <?= $tema->descripcion ?> </p>
         <div class="centrado">
-        <a class="button" onclick="history.back()">Atrás</a>
+            <a class="button" onclick="history.back()">Atrás</a>
 
         </div>
     </main>

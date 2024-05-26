@@ -1,5 +1,5 @@
 <?php
-Auth::oneRole(["ROLE_ADMIN","ROLE_LIBRARIAN"]);
+Auth::oneRole(["ROLE_ADMIN", "ROLE_LIBRARIAN"]);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -31,10 +31,10 @@ Auth::oneRole(["ROLE_ADMIN","ROLE_LIBRARIAN"]);
 
         <form action="/Tema/destroy" method="post">
 
-        <p>Confirmna el borrado de <b><?=$tema->tema?></b> ? </p>
+            <p>Confirmna el borrado de <b><?= $tema->tema ?></b> ? </p>
 
-        <input type="hidden" name="id" value ="<?= $tema->id ?>">
-        <input class="button" type="submit" name="borrar" value="Borrar"> 
+            <input type="hidden" name="id" value="<?= $tema->id ?>">
+            <input class="button" type="submit" name="borrar" value="Borrar">
 
 
         </form>

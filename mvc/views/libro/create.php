@@ -1,5 +1,5 @@
 <?php
-Auth::oneRole(["ROLE_ADMIN","ROLE_LIBRARIAN"]);
+Auth::oneRole(["ROLE_ADMIN", "ROLE_LIBRARIAN"]);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -30,9 +30,9 @@ Auth::oneRole(["ROLE_ADMIN","ROLE_LIBRARIAN"]);
 
 	<!-- MIGAS -->
 	<?= (TEMPLATE)::getBreadCrumbs([
-	
-	'Inicio' => '/',
-	'Crear Libro' => NULL,
+
+		'Inicio' => '/',
+		'Crear Libro' => NULL,
 	]) ?>
 
 	<!-- AQUI VA EL MAIN DE LA NUEVA VISTA DEL MÉTODO -->
@@ -55,17 +55,17 @@ Auth::oneRole(["ROLE_ADMIN","ROLE_LIBRARIAN"]);
 					<label>Autor</label>
 					<input type="text" name="autor" value="<?= old('autor') ?>">
 					<br><br>
-<hr><br>
+					<hr><br>
 					<label>Portada</label>
 					<input type="file" name="portada" accept="image/*" id="file-with-preview">
-	<br>
+					<br>
 					<label>Idioma:</label>
 					<select name="idioma">
 						<option value="Castellano" <?= oldSelected('idioma', 'Castellano') ?>>Castellano</option>
 						<option value="Catalán" <?= oldSelected('idioma', 'Catalán') ?>>Catalán</option>
 						<option value="Otros" <?= oldSelected('idioma', 'Otros') ?>>Otros</option>
-				</select><br><br>
-<hr><br>
+					</select><br><br>
+					<hr><br>
 
 					<label>Edición</label>
 					<input type="number" name="edicion" value="<?= old('edicion') ?>">
@@ -94,14 +94,15 @@ Auth::oneRole(["ROLE_ADMIN","ROLE_LIBRARIAN"]);
 				</form>
 			</section>
 			<section class="flex1 centrado">
-				<script src="/js/Preview.js" ></script>
-				
-					<br>
+				<script src="/js/Preview.js"></script>
 
-					<figure class="flex1 centrado">
-							<img src="<?= BOOK_IMAGE_FOLDER.'/'.DEFAULT_BOOK_IMAGE?>" id="preview-image" class="cover" alt="Previsualización de la portada">
-							<figcaption>Previsualización de la portada</figcaption>
-					</figure>
+				<br>
+
+				<figure class="flex1 centrado">
+					<img src="<?= BOOK_IMAGE_FOLDER . '/' . DEFAULT_BOOK_IMAGE ?>" id="preview-image" class="cover"
+						alt="Previsualización de la portada">
+					<figcaption>Previsualización de la portada</figcaption>
+				</figure>
 			</section>
 		</div>
 		<br><br>

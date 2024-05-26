@@ -1,5 +1,5 @@
 <?php
-Auth::oneRole(["ROLE_ADMIN","ROLE_LIBRARIAN"]);
+Auth::oneRole(["ROLE_ADMIN", "ROLE_LIBRARIAN"]);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -29,22 +29,22 @@ Auth::oneRole(["ROLE_ADMIN","ROLE_LIBRARIAN"]);
         <h2>Edición del tema <?= $tema->tema ?></h2>
 
 
-    <form action="/Tema/update" method="post">
+        <form action="/Tema/update" method="post">
 
-    <input type="hidden" name="id"  value="<?= $tema->id ?>">
+            <input type="hidden" name="id" value="<?= $tema->id ?>">
 
 
-    <label>Tema</label>
-    <input type="text" name="tema" value=" <?= old('tema', $tema->tema)?>">
-    <br>
+            <label>Tema</label>
+            <input type="text" name="tema" value=" <?= old('tema', $tema->tema) ?>">
+            <br>
 
-    <label>Descripción</label>
-    <input type="textarea" name="descripcion" value=" <?= old('descripcion', $tema->descripcion)?>">
-    <br>
+            <label>Descripción</label>
+            <input type="textarea" name="descripcion" value=" <?= old('descripcion', $tema->descripcion) ?>">
+            <br>
 
-    <input type="submit" class="button" name="actualizar">
-    </form>
-    
+            <input type="submit" class="button" name="actualizar">
+        </form>
+
     </main>
     <!-- FINALIZA ------------------------------------------ -->
 
