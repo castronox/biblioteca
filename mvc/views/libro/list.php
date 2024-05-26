@@ -25,7 +25,7 @@
 	<?= (TEMPLATE)::getMenu() ?>
 	<?= (TEMPLATE)::getBreadCrumbs([
 
-		'Lista' => '/Libro/list',
+		'Inicio' => '/',
 		'Lista de libros' => NULL,
 	]) ?>
 
@@ -78,19 +78,20 @@
 
 					<tr class="centrado">
 						<td class="centrado">
-						<img src="<?= BOOK_IMAGE_FOLDER.'/'.($libro->portada ?? DEFAULT_BOOK_IMAGE)?>" class="cover-mini" alt="Portada de <?=$libro->titulo?>">
+							<img src="<?= BOOK_IMAGE_FOLDER . '/' . ($libro->portada ?? DEFAULT_BOOK_IMAGE) ?>" class="cover-mini"
+								alt="Portada de <?= $libro->titulo ?>">
 
 						</td>
 
-						<td><a href='/Libro/show/<?=$libro->id?>'><?= $libro->titulo?> </a></td>
+						<td><a href='/Libro/show/<?= $libro->id ?>'><?= $libro->titulo ?> </a></td>
 						<td><?= $libro->autor ?></td>
 						<td><?= $libro->editorial ?></td>
-
+						
 						<td>
-							<a href='/Libro/show/<?= $libro->id ?>'>Ver</a> 
-							<?php if (Login::oneRole(['ROLE_LIBRARIAN','ROLE_ADMIN'])){ ?>
-							- <a href='/Libro/edit/<?= $libro->id ?>'>Actualizar</a> -
-							<a href='/Libro/delete/<?= $libro->id ?>'>Borrar</a>
+							<a href='/Libro/show/<?= $libro->id ?>'>Ver</a>
+							<?php if (Login::oneRole(['ROLE_LIBRARIAN', 'ROLE_ADMIN'])) { ?>
+								- <a href="/Libro/edit/<?= $libro->id ?>?from=list">Editar</a> -
+								<a href='/Libro/delete/<?= $libro->id ?>?from=list'>Borrar</a>
 							<?php } ?>
 						</td>
 					</tr>
@@ -107,5 +108,3 @@
 </body>
 
 </html>
-
-

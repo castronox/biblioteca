@@ -23,6 +23,13 @@
 <?=(TEMPLATE)::getMenu()?>
 <?=(TEMPLATE)::getFlashes()?>
 
+<!-- MIGAS -->
+<?= (TEMPLATE)::getBreadCrumbs([
+
+'Inicio' => '/',
+'Crear socio' => NULL,
+]) ?>
+
 <!-- AQUI VA EL MAIN DE LA NUEVA VISTA DEL MÉTODO -->
 	<main>
 

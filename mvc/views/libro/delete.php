@@ -23,6 +23,30 @@
 <?=(TEMPLATE)::getMenu()?>
 <?=(TEMPLATE)::getFlashes()?>
 
+
+
+<!-- MIGAS -->
+
+<?php
+// Detectar el origen de la navegación desde la URL o cualquier otra fuente
+$from = $_GET['from'] ?? 'show'; // Por defecto es 'show' si no se especifica
+
+// Definir las migas de pan
+$migas = [
+    'Inicio' => '/',
+    'Lista de libros' => '/Libro/list',
+];
+
+if ($from === 'list') {
+    $migas["Borrar libro $libro->id"] = NULL;
+} else {
+    // Asumimos que el origen es 'show' o cualquier otro valor
+    $migas["Mostrar libro $libro->id"] = "/Libro/show/$libro->id";
+    $migas["Borrar libro $libro->id"] = NULL;
+}
+?>
+<?= (TEMPLATE)::getBreadCrumbs($migas) ?>
+
 <!-- AQUI VA EL MAIN DE LA NUEVA VISTA DEL MÉTODO -->
 
 

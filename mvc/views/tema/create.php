@@ -17,6 +17,13 @@
 <?= (TEMPLATE)::getHeader('Escribe el header')?>
 <?=(TEMPLATE)::getMenu()?>
 <?=(TEMPLATE)::getFlashes()?>
+
+<!-- MIGAS -->
+<?= (TEMPLATE)::getBreadCrumbs([
+
+'Inicio' => '/',
+'Crear tema' => NULL,
+]) ?>
 <!-- AQUI VA EL MAIN DE LA NUEVA VISTA -->
 <main class="centrado">
 

@@ -128,6 +128,7 @@
 		<div class="centrado">
 		<a class="button" onclick="history.back()">Atrás</a>
 		<a class="button" href="/socio/list">Lista de socios</a>
+		<a class="button" href="/socio/delete/<?= $socio->id ?>">Borrar socio</a>
 		
 		
 		

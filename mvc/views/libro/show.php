@@ -23,6 +23,15 @@
 <?=(TEMPLATE)::getMenu()?>
 <?=(TEMPLATE)::getFlashes()?>
 
+<!-- MIGAS -->
+
+
+<?= (TEMPLATE)::getBreadCrumbs([
+
+'Lista de libros' => '/Libro/list',
+"Mostrar libro $libro->id" => NULL,
+]) ?>
+
 <main>
 		<h1><?= APP_NAME ?></h1>
 
@@ -62,9 +71,8 @@
 			<a class="button" onclick="history.back()">Atrás</a> <a
 				class="button" href="/libro/list">Lista de libros</a>
 				<?php if (Login::oneRole(['ROLE_LIBRARIAN','ROLE_ADMIN'])){ ?>
-				<a
-				class="button" href="/libro/edit/<?= $libro->id?>">Edición</a> <a
-				class="button" href="/libro/delete/<?= $libro->id?>">Borrado</a>
+			<a class="button" href="/Libro/edit/<?= $libro->id ?>">Editar</a>
+			<a class="button" href="/libro/delete/<?= $libro->id?>">Borrado</a>
 
 				<?php } ?>
 		</div>

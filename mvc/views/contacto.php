@@ -23,6 +23,13 @@
 <?=(TEMPLATE)::getMenu()?>
 <?=(TEMPLATE)::getFlashes()?>
 
+<!-- MIGAS -->
+<?= (TEMPLATE)::getBreadCrumbs([
+
+'Inicio' => '/',
+'Contacto' => NULL,
+]) ?>
+
 <!-- AQUI VA EL MAIN DE LA NUEVA VISTA DEL MÉTODO -->
 
 

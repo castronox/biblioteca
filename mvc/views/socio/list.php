@@ -3,7 +3,9 @@
 <head>
 <meta charset ="UTF-8">
 <title>Lista de Socios - <?= APP_NAME ?></title>
-
+<?php 
+Auth::admin();
+?>
 <!-- META -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Lista de libros en <?= APP_NAME ?>">
@@ -87,8 +89,8 @@
 		
 		<td>		
 			<a href = '/Socio/show/<?= $socio->id?>'>Ver</a>
-			<a href = '/Socio/edit/<?= $socio->id?>'>Editar</a>
-			<a href = '/Socio/delete/<?= $socio->id?>'>Borrar</a>
+			<a href = '/Socio/edit/<?= $socio->id?>?from=list'>Editar</a>
+			<a href = '/Socio/delete/<?= $socio->id?>?from=list'>Borrar</a>
 		</td>	
 	</tr>
 	

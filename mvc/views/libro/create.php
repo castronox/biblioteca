@@ -25,6 +25,13 @@
 	<?= (TEMPLATE)::getMenu() ?>
 	<?= (TEMPLATE)::getFlashes() ?>
 
+	<!-- MIGAS -->
+	<?= (TEMPLATE)::getBreadCrumbs([
+	
+	'Inicio' => '/',
+	'Crear Libro' => NULL,
+	]) ?>
+
 	<!-- AQUI VA EL MAIN DE LA NUEVA VISTA DEL MÉTODO -->
 	<main>
 
