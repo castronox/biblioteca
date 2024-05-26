@@ -1,3 +1,6 @@
+<?php 
+Auth::admin();
+?>
 <!DOCTYPE html>
 <html lang='es'>
 <head>

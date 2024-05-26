@@ -3,9 +3,7 @@
 <head>
 <meta charset ="UTF-8">
 <title>Lista de Socios - <?= APP_NAME ?></title>
-<?php 
-Auth::admin();
-?>
+
 <!-- META -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Lista de libros en <?= APP_NAME ?>">
