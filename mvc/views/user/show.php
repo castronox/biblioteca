@@ -48,7 +48,7 @@ Auth::admin();
             <section class="flex1 centrado">
 
                 <figure class="flex1 centrado">
-                    <img src="<?= USER_IMAGE_FOLDER. '/' . ($user->foto ?? DEFAULT_USER_IMAGE) ?>" class="cover"  
+                    <img src="<?= USER_IMAGE_FOLDER. '/' . ($user->picture ?? DEFAULT_USER_IMAGE) ?>" class="cover"  
                         alt="Portada de <?= $user->displayname ?>">
                         <figcaption>Usuario: <?= $user->displayname ?></figcaption>
 

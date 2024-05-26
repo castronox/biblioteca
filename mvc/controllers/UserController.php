@@ -68,28 +68,32 @@ class UserController extends Controller
         $user->addRole('ROLE_USER', $_POST['roles']);
 
         try {
-            dd($user);
+
             $user->save();
 
-            if (Upload::arrive('picture')) {
-                $user->picture = Upload::save(
-                    'picture',
-                    '../public/' . USER_IMAGE_FOLDER,
-                    true,
-                    8000000,
-                    'image/*',
-                    'user_'
+            if (UploadedFile::check('picture')) {
+                
+                $file = new UploadedFile(
+                    'picture',                   
+                    8000000,                   
+                    ['image/png', 'image/jpeg', 'image/gif']
                 );
+
+                $user->picture = $file->store('../public/' . USER_IMAGE_FOLDER);
             }
 
+            $user->update();
             Session::success("Nuevo usuario $user->displayname creado con éxito.");
-            redirect("/");
+            redirect("/User/list");
+        
+
+        
         } catch (SQLException $e) {
             Session::error("Se produjo un error al guardar el usuario $user->displayname.");
 
             if (DEBUG)
                 throw new Exception($e->getMessage());
-            else
+
                 redirect("/User/create");
 
             # Si se produce un error en la subida del fichero (Sería despues de guardar)
@@ -202,20 +206,20 @@ class UserController extends Controller
     public function update()
     {
         Auth::admin();
-    
+
         if (!$this->request->has('actualizar')) {
             throw new FormException('No se recibieron los datos');
         }
-    
+
         $id = intval($this->request->post('id'));  // Recuperamos el id via post
-    
+
         $user = User::findOrFail($id, 'No se ha encontrado el usuario.');
-    
+
         // Recuperamos los campos
         $user->displayname = $this->request->post('displayname');
         $user->email = $this->request->post('email');
         $user->phone = $this->request->post('phone');
-        
+
         if ($this->request->post('password')) {
             $user->password = password_hash($this->request->post('password'), PASSWORD_BCRYPT);
         }
@@ -227,40 +231,40 @@ class UserController extends Controller
                     8000000,
                     ['image/png', 'image/jpeg', 'image/gif']
                 );
-    
-                if ($user->picture) 
+
+                if ($user->picture)
                     File::remove('../public/' . USER_IMAGE_FOLDER . '/' . $user->picture); // Elimina el fichero anterior si existe
-                    $user->picture = $file->store('../public/' . USER_IMAGE_FOLDER, 'user__');
-                
-            
+                $user->picture = $file->store('../public/' . USER_IMAGE_FOLDER, 'user__');
+
+
             }
-        
+
             $user->update();
-            
+
             Session::success("Actualización de $user->displayname correcta.");
             redirect("/User/edit/$id");
-    
+
         } catch (UploadException $e) {
             Session::warning("Cambios guardados pero no se modificó la portada");
-    
+
             if (DEBUG) {
                 throw new Exception($e->getMessage());
             }
             redirect("User/edit/$id");
-        }catch (UploadException $e) {
+        } catch (UploadException $e) {
 
-			Session::warning("Cambios guardados pero no se modificó la foto");
+            Session::warning("Cambios guardados pero no se modificó la foto");
 
-			if (DEBUG)
-				throw new Exception($e->getMessage());
-			redirect("/User/edit/$id ");
+            if (DEBUG)
+                throw new Exception($e->getMessage());
+            redirect("/User/edit/$id ");
 
-		}
+        }
     }
-    
 
 
-    
+
+
 
 
     #---------------------------------------------------------------------#
@@ -272,41 +276,97 @@ class UserController extends Controller
     #                                                                      
     #                                                                      
     #       
-    
-    
 
 
-    public function dropPhoto(){
+
+
+    public function dropPhoto()
+    {
         if (!$this->request->has("borrar"))
-        throw new FormExeption("Faltan datos para completar la operación");
-    
+            throw new FormExeption("Faltan datos para completar la operación");
+
         # Recupera el ID y el socio
         $id = intval($this->request->post("id"));
         $user = User::findOrFail($id, "No se ha encontrado el socio");
-    
+
         $tmp = $user->picture;
         $user->picture = NULL;
-    
+
         try {
-         
+
             $user->update();
-                File::remove("../public/" . USER_IMAGE_FOLDER. "/" . $tmp, true);
-    
-                Session::success("Borrado de la foto de perfil de $user->displayname realizada");
-                redirect("/User/edit/$id");
-    
-            } catch (SQLException $e) {
-                Session::error("No se pudo eliminar la foto de perfil del socio");
-    
-                if (DEBUG)
+            File::remove("../public/" . USER_IMAGE_FOLDER . "/" . $tmp, true);
+
+            Session::success("Borrado de la foto de perfil de $user->displayname realizada");
+            redirect("/User/edit/$id");
+
+        } catch (SQLException $e) {
+            Session::error("No se pudo eliminar la foto de perfil del socio");
+
+            if (DEBUG)
                 throw new Exception($e->getMessage);
-            
-            }catch (FileException $e) {
-                Session::warning("No se pudo eliminar el fichero del disco");
-    
-                if (DEBUG)
+
+        } catch (FileException $e) {
+            Session::warning("No se pudo eliminar el fichero del disco");
+
+            if (DEBUG)
                 throw new Exception($e->getMessage);
             redirect("/User/edit/$user->id");
         }
+    }
+
+    #---------------------------------------------------------------------#
+    #----------------->          BORRAR USUARIO         <-----------------#
+    #---------------------------------------------------------------------#
+    #                                                                      
+    #                                                                      
+    #                                                                      
+    #                                                                      
+    #                                                                      
+    #                                                                      
+
+    # Carga la vista
+    public function delete(int $id = 0)
+    {
+
+        $user = User::findOrFail($id, "No existe el usuario");
+
+        view('user/delete', [
+            'user' => $user
+        ]);
+    }
+
+    # Elimina el usuario desde la vista de confirmación
+
+    public function destroy()
+    {
+
+        if (!$this->request->has('borrar')) 
+            throw new FormExeption('No se recibió confirmación de borrado');
+
+            $id = intval($this->request->post('id'));    # Recupera el identificador       
+            $user = User::findOrFail($id);               # Recupera el usuario
+
+        try{
+
+            $user->delete($user->id);
+
+            if ($user->picture)
+                File::remove('../public/'. USER_IMAGE_FOLDER . '/'. $user->picture, true);
+            Session::success("Se ha borrado el usuario $user->displayname correctamente.");
+            redirect("/User/list");
+        }catch (SQLException $e){
+
+                Session::error("No se ha ejecutado el borrado de $user->displayname");
+
+                if (DEBUG)
+                throw new Exception($e->getMessage);
+
+                redirect("/User/delete/$id");
+        }
+
+        
+
+
     }
 }

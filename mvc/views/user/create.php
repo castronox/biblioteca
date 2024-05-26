@@ -1,4 +1,4 @@
-<?php 
+<?php
 Auth::admin();
 ?>
 <!DOCTYPE html>
@@ -64,11 +64,11 @@ Auth::admin();
                     <label for="rol">ROL:</label>
                     <select name="roles">
 
-                       <?php foreach(USER_ROLES as $roleName => $roleValue){ ?>
-                        <option value="<?= $roleValue ?>"><?= $roleName ?></option>
+                        <?php foreach (USER_ROLES as $roleName => $roleValue) { ?>
+                            <option value="<?= $roleValue ?>"><?= $roleName ?></option>
 
-                       <?php }?>
-                       
+                        <?php } ?>
+
 
                     </select>
 
