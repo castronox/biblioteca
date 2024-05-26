@@ -1,3 +1,7 @@
+<?php
+Auth::oneRole(["ROLE_ADMIN","ROLE_LIBRARIAN"]);
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
