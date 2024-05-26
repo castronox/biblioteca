@@ -23,6 +23,8 @@ Auth::admin();
 <?=(TEMPLATE)::getLogin()?>
 <?= (TEMPLATE)::getHeader('Lista de socios')?>
 <?=(TEMPLATE)::getMenu()?>
+
+<!-- MIGAS -->
 <?=(TEMPLATE)::getBreadCrumbs([
 
 'Socio'=> '/Socio/list'

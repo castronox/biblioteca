@@ -23,6 +23,13 @@
 <?=(TEMPLATE)::getMenu()?>
 <?=(TEMPLATE)::getFlashes()?>
 
+
+<!-- MIGAS -->
+<?= (TEMPLATE)::getBreadCrumbs([
+
+'Inicio' => '/',
+'Home' => NULL,
+]) ?>
 <main>
 <h1>Perfil de <?=$user->displayname?> en <?= APP_NAME ?></h1>
 

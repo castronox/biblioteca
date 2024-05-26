@@ -25,6 +25,14 @@
 	<?= (TEMPLATE)::getMenu() ?>
 	<?= (TEMPLATE)::getFlashes() ?>
 
+	<!-- MIGAS -->
+
+	<?= (TEMPLATE)::getBreadCrumbs([
+
+		'Lista de socios' => '/Socio/list',
+		"Mostrar socio $socio->id" => NULL,
+	]) ?>
+
 	<main>
 		<h1><?= APP_NAME ?></h1>
 		<div class="flex-container">

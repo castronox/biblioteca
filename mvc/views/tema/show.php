@@ -20,6 +20,8 @@
     <?= (TEMPLATE)::getMenu() ?>
     <?= (TEMPLATE)::getFlashes() ?>
     <!-- AQUI VA EL MAIN DE LA NUEVA VISTA -->
+
+
     <main>
 
         <h1><?= APP_NAME ?></h1>

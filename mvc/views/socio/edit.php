@@ -24,14 +24,27 @@
 <?=(TEMPLATE)::getFlashes()?>
 
 
-<!--MIGAS-->
+<!-- MIGAS -->
 
-<?= (TEMPLATE)::getBreadCrumbs([
+<?php
+// Detectar el origen de la navegación desde la URL o cualquier otra fuente
+$from = $_GET['from'] ?? 'show'; // Por defecto es 'show' si no se especifica
 
-'Lista de socios' => '/Socio/list',
-'Editar socio' => NULL,
-]) ?>
+// Definir las migas de pan
+$migas = [
+    'Inicio' => '/',
+    'Lista de socios' => '/Socio/list',
+];
 
+if ($from === 'list') {
+    $migas["Editar socio $socio->id"] = NULL;
+} else {
+    // Asumimos que el origen es 'show' o cualquier otro valor
+    $migas["Mostrar socio $socio->id"] = "/Socio/show/$socio->id";
+    $migas["Editar socio $socio->id"] = NULL;
+}
+?>
+<?= (TEMPLATE)::getBreadCrumbs($migas) ?>
 <!-- AQUI VA EL MAIN DE LA NUEVA VISTA DEL MÉTODO -->
 	
 	
