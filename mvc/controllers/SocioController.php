@@ -155,6 +155,8 @@ class SocioController extends Controller
 
 		#Probamos a introducir al nuevo socio a la base de datos
 		try {
+
+			$socio->saneate();
 			$socio->save();
 			#------ Si llega la portada------------------
 

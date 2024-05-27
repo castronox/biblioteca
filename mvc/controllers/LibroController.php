@@ -161,7 +161,7 @@ class LibroController extends Controller
 
 		try {
 			# ----------------------------------------------------
-
+			$libro->saneate();
 			$libro->save(); # ------Guardamos el libro
 			$libro->addTema($idtema);		# Le pone un tema principal
 
