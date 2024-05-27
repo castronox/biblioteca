@@ -52,7 +52,7 @@ Auth::admin();
 
     <figure class="flex1 centrado" >
 
-    <img src="<?= USER_IMAGE_FOLDER . '/' . ($user->picture ?? DEFAULT_USER_IMAGE) ?>" class="cover" alt="Imagen de perfil de <?= $user->displayname?>">
+    <img src="<?= USER_IMAGE_FOLDER . '/' . $user->picture ?? DEFAULT_USER_IMAGE ?>" class="cover" alt="Imagen de perfil de <?= $user->displayname?>">
     <figcaption>Imagen de perfil de <?= $user->displayname ?></figcaption>
     </figure>
 

@@ -27,6 +27,12 @@ Auth::admin();
     <?= (TEMPLATE)::getHeader('Crear nuevo usuario') ?>
     <?= (TEMPLATE)::getMenu() ?>
     <?= (TEMPLATE)::getFlashes() ?>
+    <!-- MIGAS -->
+    <?= (TEMPLATE)::getBreadCrumbs([
+    
+    'Inicio' => '/',
+    'Crear usuario' => NULL,
+    ]) ?>
 
     <main>
         <section>

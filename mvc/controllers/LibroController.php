@@ -120,6 +120,10 @@ class LibroController extends Controller
 	# Redirección a la vista del formulario para crear el libro
 	public function create()
 	{
+		# Implementa el acceso al rol de administrador o de bibliotecario
+		Auth::oneRole(['ROLE_ADMIN', 'ROLE_LIBRARIAN']);
+
+
 		view('libro/create', [
 
 			'listaTemas' => Tema::orderBy('tema')
@@ -129,6 +133,8 @@ class LibroController extends Controller
 
 	public function store()
 	{
+		# Implementa el acceso al rol de administrador o de bibliotecario
+		Auth::oneRole(['ROLE_ADMIN', 'ROLE_LIBRARIAN']);
 
 		# Comprobamos que la peticion venga del formulario --------------------
 		if (!$this->request->has('guardar'))
@@ -226,6 +232,9 @@ class LibroController extends Controller
 	# Esta función muestra la vista del formulario de edición
 	public function edit(int $id = 0)
 	{
+		# Implementa el acceso al rol de administrador o de bibliotecario
+		Auth::oneRole(['ROLE_ADMIN', 'ROLE_LIBRARIAN']);
+
 		$libro = Libro::findOrFail($id, "No se encontró el libro.");
 
 		$ejemplares = $libro->getEjemplares('Ejemplar');			# Recoge los ejemplares del libro		
@@ -246,6 +255,9 @@ class LibroController extends Controller
 	# Funcion para actualizar el libro
 	public function update()
 	{
+		# Implementa el acceso al rol de administrador o de bibliotecario
+		Auth::oneRole(['ROLE_ADMIN', 'ROLE_LIBRARIAN']);
+
 		if (!$this->request->has('actualizar'))
 			throw new FormException('No se recibieron datos');
 
@@ -321,6 +333,9 @@ class LibroController extends Controller
 	#                                                                      
 	public function delete(int $id = 0)
 	{
+		# Implementa el acceso al rol de administrador o de bibliotecario
+		Auth::oneRole(['ROLE_ADMIN', 'ROLE_LIBRARIAN']);
+		
 		$libro = Libro::findOrFail($id, "No existe el libro");
 
 		view('libro/delete', [
@@ -386,6 +401,9 @@ class LibroController extends Controller
 	public function addtema()
 	{
 
+		# Implementa el acceso al rol de administrador o de bibliotecario
+		Auth::oneRole(['ROLE_ADMIN', 'ROLE_LIBRARIAN']);
+
 		if (empty($this->request->post('add')))
 			throw new FormException("No se recibió el formulario");
 
@@ -438,6 +456,9 @@ class LibroController extends Controller
 	public function removetema()
 	{
 
+		# Implementa el acceso al rol de administrador o de bibliotecario
+		Auth::oneRole(['ROLE_ADMIN', 'ROLE_LIBRARIAN']);
+
 		# Comprueba que llega el formulario 
 		if (empty($this->request->post('remove')))
 			throw new FormException("Nose recibió el formulario");
@@ -482,6 +503,9 @@ class LibroController extends Controller
 
 	public function dropcover()
 	{
+		# Implementa el acceso al rol de administrador o de bibliotecario
+		Auth::oneRole(['ROLE_ADMIN', 'ROLE_LIBRARIAN']);
+
 		if (!$this->request->has("borrar"))
 			throw new FormException("Faltan datos para completar la operación");
 

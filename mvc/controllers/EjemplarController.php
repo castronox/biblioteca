@@ -9,7 +9,7 @@ class EjemplarController extends Controller {
 	# Método para trabajar con ejemplares
 	
 	public function create (int $idlibro=0){ #  <----- Recibe el id del libro por parámetro
-		
+		Auth::oneRole(['ROLE_ADMIN', 'ROLE_LIBRARIAN']);
 		# Carga la vista con el formulario y le pasa el filtro.
 		
 		$this->loadView('ejemplar/create', [
@@ -20,7 +20,7 @@ class EjemplarController extends Controller {
 	
 	# Guarda el nuevo ejemplar
 	public function store(){
-		
+		Auth::oneRole(['ROLE_ADMIN', 'ROLE_LIBRARIAN']);
 		
 		
 		# Comprueba que llega el formulario con los datos
@@ -62,7 +62,7 @@ class EjemplarController extends Controller {
 
 	# Borra un ejemplar
 	public function destroy(int $id = 0){
-		
+		Auth::oneRole(['ROLE_ADMIN', 'ROLE_LIBRARIAN']);
 		# Recupera el ejemplar de la base de datos.
 		
 		$ejemplar = Ejemplar::findEjemplares($id, "No se encontro el ejemplar.");

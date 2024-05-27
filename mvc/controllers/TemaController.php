@@ -16,6 +16,9 @@ class TemaController extends Controller
 
 	public function index()
 	{
+
+		# Implementa el acceso al rol de administrador o de bibliotecario
+		Auth::oneRole(['ROLE_ADMIN', 'ROLE_LIBRARIAN']);
 		$this->list(); 		# Redirige al método list
 	}
 
@@ -30,6 +33,9 @@ class TemaController extends Controller
 	#  
 	public function list(int $page = 1)
 	{
+
+		# Implementa el acceso al rol de administrador o de bibliotecario
+		Auth::oneRole(['ROLE_ADMIN', 'ROLE_LIBRARIAN']);
 
 		$filtro = Filter::apply('temas');
 
@@ -80,11 +86,18 @@ class TemaController extends Controller
 	# 
 	public function create()
 	{
+
+		# Implementa el acceso al rol de administrador o de bibliotecario
+		Auth::oneRole(['ROLE_ADMIN', 'ROLE_LIBRARIAN']);
+
 		view('tema/create');	# Apuntamos a la vista del método			
 	}
 
 	public function store()
 	{
+
+		# Implementa el acceso al rol de administrador o de bibliotecario
+		Auth::oneRole(['ROLE_ADMIN', 'ROLE_LIBRARIAN']);
 
 		if (!$this->request->has('guardar'))
 			throw new FormException('No se recibió el formulario');
@@ -135,6 +148,9 @@ class TemaController extends Controller
 	public function show($id = 0)
 	{
 
+		# Implementa el acceso al rol de administrador o de bibliotecario
+		Auth::oneRole(['ROLE_ADMIN', 'ROLE_LIBRARIAN']);
+
 		if (!$id)
 			throw new NothingToFindException('No se indicó el tema a buscar');
 		$tema = Tema::findOrFail($id, "No se encontró el tema seleccionado");
@@ -161,6 +177,9 @@ class TemaController extends Controller
 	public function edit(int $id = 0)
 	{
 
+		# Implementa el acceso al rol de administrador o de bibliotecario
+		Auth::oneRole(['ROLE_ADMIN', 'ROLE_LIBRARIAN']);
+
 		$temas = Tema::findOrFail($id, 'No se encontró el TEMA');
 
 
@@ -175,6 +194,9 @@ class TemaController extends Controller
 
 	public function update()
 	{
+
+		# Implementa el acceso al rol de administrador o de bibliotecario
+		Auth::oneRole(['ROLE_ADMIN', 'ROLE_LIBRARIAN']);
 
 		if (!$this->request->has('actualizar'))
 			throw new FormException('No se recibieron datos');
@@ -222,6 +244,9 @@ class TemaController extends Controller
 	public function delete(int $id = 0)
 	{
 
+		# Implementa el acceso al rol de administrador o de bibliotecario
+		Auth::oneRole(['ROLE_ADMIN', 'ROLE_LIBRARIAN']);
+
 		$tema = Tema::findOrFail($id, "No existe el tema");
 
 		view('Tema/delete', [
@@ -236,6 +261,9 @@ class TemaController extends Controller
 
 	public function destroy()
 	{
+		# Implementa el acceso al rol de administrador o de bibliotecario
+		Auth::oneRole(['ROLE_ADMIN', 'ROLE_LIBRARIAN']);
+
 		# Comprueba que llega el formulario
 		if (!$this->request->has('borrar'))
 			throw new FormException('No se recibió el formulario');

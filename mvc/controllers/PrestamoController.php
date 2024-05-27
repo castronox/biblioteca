@@ -10,6 +10,9 @@ class PrestamoController extends Controller{
 	
 	public function create (int $idsocio = 0){  #--- Recibe por parametro su ID
 		
+		# Implementa el acceso al rol de administrador o de bibliotecario
+		Auth::oneRole(['ROLE_ADMIN', 'ROLE_LIBRARIAN']);
+
 		$socio = Socio::findOrFail ($idsocio, "No se encontro el socio seleccionado");
 		
 		view('prestamo/create',
@@ -23,6 +26,10 @@ class PrestamoController extends Controller{
 	# Guarda el nuevo prestamo
 	
 	public function store() {
+
+		# Implementa el acceso al rol de administrador o de bibliotecario
+		Auth::oneRole(['ROLE_ADMIN', 'ROLE_LIBRARIAN']);
+
 		// Verifica si se enviaron los datos del formulario
 		if(!$this->request->has('guardar')) {
 			throw new FormException('No se recibieron los datos del préstamo');
@@ -68,6 +75,9 @@ class PrestamoController extends Controller{
 #--------------- MÉTODO DEVOLVER PRESTAMO ------------------------------------------------------------				
 			
 	public function devolucion(int $id = 0){
+
+		# Implementa el acceso al rol de administrador o de bibliotecario
+		Auth::oneRole(['ROLE_ADMIN', 'ROLE_LIBRARIAN']);
 			
 			# Recupera el préstamo 
 			$prestamo = Prestamo::findOrFail($id);	
@@ -86,7 +96,7 @@ class PrestamoController extends Controller{
 				redirect("/Socio/edit/$prestamo->idsocio");
 				
 			# Si falla..	
-			}catch (SQLExcpetion){
+			}catch (SQLExcpetion $e){
 				
 				Session::error('No se ha podido registrar la devolución.');
 				

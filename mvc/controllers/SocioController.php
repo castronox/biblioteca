@@ -31,6 +31,8 @@ class SocioController extends Controller
 	#                                                                      
 	public function list(int $page = 1)
 	{
+		# Implementa el acceso al rol de administrador o de bibliotecario
+		Auth::oneRole(['ROLE_ADMIN', 'ROLE_LIBRARIAN']);
 
 		$filtro = Filter::apply('socios');
 		$limit = RESULTS_PER_PAGE;
@@ -81,6 +83,9 @@ class SocioController extends Controller
 	public function show(int $id = 0)
 	{
 
+		# Implementa el acceso al rol de administrador o de bibliotecario
+		Auth::oneRole(['ROLE_ADMIN', 'ROLE_LIBRARIAN']);
+
 		# Comprueba que llega el ID
 		if (!$id)
 			throw new NothigToFindException('No se indicó el socio a buscar.');
@@ -113,12 +118,18 @@ class SocioController extends Controller
 	public function create()
 	{
 
+		# Implementa el acceso al rol de administrador o de bibliotecario
+		Auth::oneRole(['ROLE_ADMIN', 'ROLE_LIBRARIAN']);
+
 		view('socio/create');
 	}
 
 	# Creamos el método para guardar el nuevo socio.
 	public function store()
 	{
+
+		# Implementa el acceso al rol de administrador o de bibliotecario
+		Auth::oneRole(['ROLE_ADMIN', 'ROLE_LIBRARIAN']);
 
 
 		if (!$this->request->has('guardar'))
@@ -207,6 +218,9 @@ class SocioController extends Controller
 	public function edit(int $id = 0)
 	{
 
+		# Implementa el acceso al rol de administrador o de bibliotecario
+		Auth::oneRole(['ROLE_ADMIN', 'ROLE_LIBRARIAN']);
+
 		$socio = Socio::findOrFail($id, "No se encontró el socio");
 		$prestamos = $socio->hasMany('Prestamo');
 		#Carga la vista con el formulario de edición de socio
@@ -221,6 +235,10 @@ class SocioController extends Controller
 	# Función para actualizar el socio
 	public function update()
 	{
+
+		# Implementa el acceso al rol de administrador o de bibliotecario
+		Auth::oneRole(['ROLE_ADMIN', 'ROLE_LIBRARIAN']);
+
 		if (!$this->request->has('actualizar'))
 			throw new FormException('No se recibieron datos');
 
@@ -306,6 +324,9 @@ class SocioController extends Controller
 	# Busca el socio y muestra la vista
 	public function delete(int $id = 0)
 	{
+		# Implementa el acceso al rol de administrador o de bibliotecario
+		Auth::oneRole(['ROLE_ADMIN', 'ROLE_LIBRARIAN']);
+
 		$socio = Socio::findOrFail($id, "No existe el Socio");
 
 		view('socio/delete', [
@@ -316,6 +337,9 @@ class SocioController extends Controller
 	# Elimina el Socio desde la vista de confimación 
 	public function destroy()
 	{
+			# Implementa el acceso al rol de administrador o de bibliotecario
+			Auth::oneRole(['ROLE_ADMIN', 'ROLE_LIBRARIAN']);
+
 		if (!$this->request->has('borrar'))
 			throw new FormExeption('No se recibio confirmación de borrado.');
 
@@ -360,6 +384,11 @@ class SocioController extends Controller
 #        
 
 public function dropPhoto(){
+
+	# Implementa el acceso al rol de administrador o de bibliotecario
+	Auth::oneRole(['ROLE_ADMIN', 'ROLE_LIBRARIAN']);
+
+
 	if (!$this->request->has("borrar"))
 	throw new FormExeption("Faltan datos para completar la operación");
 

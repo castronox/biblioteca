@@ -28,7 +28,7 @@ class Test extends Template{
     		<link rel='shortcut icon' href='/favicon.ico' type='image/png'>	
             <link rel='stylesheet' type='text/css' href='/css/test.css'>
     	</head>
-    	<body>".self::getHeader("$file test");	
+    	<body>".(TEMPLATE)::getLogin() .(TEMPLATE)::getHeader('TEST').(TEMPLATE)::getMenu();	
     }
     
     
